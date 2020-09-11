@@ -1,5 +1,6 @@
 syntax on
 filetype off
+set wrap
 set confirm
 call plug#begin('~/.vim/plugged')
 "Imported ones
