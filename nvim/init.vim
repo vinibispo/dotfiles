@@ -4,12 +4,14 @@ set confirm
 call plug#begin('~/.vim/plugged')
 "Imported ones
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'stsewd/fzf-checkout.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'erickzanardo/vim-xclip'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main'}
 Plug 'tpope/vim-unimpaired'
 Plug 'isRuslan/vim-es6'
@@ -59,6 +61,28 @@ let g:javascript_plugin_ngdoc = 1
 " ctrlp ignore folders
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
+
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_branch_actions = {
+      \ 'rebase': {
+      \   'prompt': 'Rebase> ',
+      \   'execute': 'echo system("{git} rebase {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-r',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \ 'track': {
+      \   'prompt': 'Track> ',
+      \   'execute': 'echo system("{git} checkout --track {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-t',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \}
+
 filetype plugin indent on    " required
 
 " coc.vim config
@@ -89,7 +113,7 @@ set smartindent
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=235 gui=NONE guifg=NONE guibg=NONE
 set clipboard=unnamed,unnamedplus
 
-nmap <silent> z :call CocAction('doHover')<CR>
+nmap <leader> Z :call CocAction('doHover')<CR>
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
@@ -148,6 +172,8 @@ let mapleader=","
 map ; :Files<CR>
 map <C-]> :NERDTreeToggle<CR>
 map <C-F> :NERDTreeFind<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <leader>gc :GBranches
 map <F5> :e!<CR>                    " force reload current file
 map <F6> :CtrlPClearAllCaches<CR>   " clear all CtrlP cache
 map <leader>W :w<CR>
