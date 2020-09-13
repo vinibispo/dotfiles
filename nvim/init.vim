@@ -1,6 +1,5 @@
 syntax on
 filetype off
-set wrap
 set confirm
 call plug#begin('~/.vim/plugged')
 "Imported ones
@@ -11,6 +10,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main'}
 Plug 'tpope/vim-unimpaired'
 Plug 'isRuslan/vim-es6'
 Plug 'bling/vim-airline'
@@ -20,6 +20,7 @@ Plug 'godlygeek/tabular'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terroo/vim-auto-markdown'
 "Plug 'pangloss/vim-javascript'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'othree/yajs.vim', {'for': 'javascript'}
 Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
 Plug 'pearofducks/ansible-vim'
@@ -82,7 +83,7 @@ set smarttab
 set backspace=indent,eol,start
 set laststatus=2
 set cpoptions+=n
-set number
+set relativenumber
 set vb
 set smartindent
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=235 gui=NONE guifg=NONE guibg=NONE
@@ -96,7 +97,6 @@ set wrap
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
 
-set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 " ================ Folds ============================
 
