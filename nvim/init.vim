@@ -30,7 +30,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Syntax format for jsx
 Plug 'maxmellon/vim-jsx-pretty'
-
+let g:ruby_host_prog='~/.gem/ruby/2.7.0/bin/neovim-ruby-host'
 "Syntax support for graphql
 Plug 'jparise/vim-graphql'
 
