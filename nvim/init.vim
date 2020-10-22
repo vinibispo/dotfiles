@@ -36,6 +36,7 @@ let g:ruby_host_prog='~/.gem/ruby/2.7.0/bin/neovim-ruby-host'
 "Syntax support for graphql
 Plug 'jparise/vim-graphql'
 
+Plug 'mattn/emmet-vim'
 "Search
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -57,7 +58,8 @@ let g:airline_right_sep = ''
 " vim javascript
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
-
+set foldmethod=indent               " not as cool as syntax, but faster
+set foldlevelstart=99               " start unfolded
 " ctrlp ignore folders
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
@@ -113,7 +115,7 @@ set smartindent
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=235 gui=NONE guifg=NONE guibg=NONE
 set clipboard=unnamed,unnamedplus
 
-nmap <leader> Z :call CocAction('doHover')<CR>
+nmap Z :call CocAction('doHover')<CR>
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
@@ -171,7 +173,7 @@ let g:ctrlp_show_hidden = 1
 let mapleader=","
 map ; :Files<CR>
 map <C-]> :NERDTreeToggle<CR>
-map <C-F> :NERDTreeFind<CR>
+map <C-F> :Ag<CR>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>gc :GBranches
 map <F5> :e!<CR>                    " force reload current file
@@ -195,6 +197,8 @@ map <leader>ev :e ~/dotfiles/nvim/init.vim <CR>
 map <leader>sv :source ~/.config/nvim/init.vim <CR>
 "nmap <ESC> :call coc#util#float_hide() <CR>
 "autocmd CursorHold * silent call CocActionAsync('doHover')
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -224,9 +228,11 @@ let g:onedark_color_overrides = {
 syntax enable
 colorscheme onedark
 
-set guifont=JetBrainsMono-Medium
+set guifont=FiraCode
 let g:airline_powerline_fonts = 1
 
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
