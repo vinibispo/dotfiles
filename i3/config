@@ -49,6 +49,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show drun -show-icons
+bindsym $mod+e exec thunar
 #bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -93,7 +94,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+z layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -153,6 +154,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+exec –no-startup-id ~/.fehbg
 exec --no-startup-id copyq
 exec --no-startup-id xfce4-power-manager
 # resize window (you can also use the mouse for that)
@@ -198,6 +200,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id nitrogen --restore
 exec --no-startup-id xcompmgr -c &
-exec ssh-agent zsh -i
+exec --no-startup-id xmodmap ~/.Xmodmap
+exec_always ~/.config/i3/scripts/gnome-keyring.sh
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id gnome-keyring-daemon --components keyring,pkcs11
