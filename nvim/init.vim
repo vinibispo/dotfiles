@@ -4,6 +4,7 @@ set confirm
 call plug#begin('~/.vim/plugged')
 "Imported ones
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'erickzanardo/vim-xclip'
@@ -18,6 +19,8 @@ Plug 'isRuslan/vim-es6'
 Plug 'bling/vim-airline'
 Plug 'plasticboy/vim-markdown'
 Plug 'godlygeek/tabular'
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
 "Themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terroo/vim-auto-markdown'
@@ -29,10 +32,11 @@ Plug 'pearofducks/ansible-vim'
 "Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'OmniSharp/omnisharp-vim'
 
 "Syntax format for jsx
 Plug 'maxmellon/vim-jsx-pretty'
-let g:ruby_host_prog='~/.gem/ruby/2.7.0/bin/neovim-ruby-host'
+let g:ruby_host_prog='~/.rvm/gems/ruby-2.7.0/gems/neovim-0.8.1'
 "Syntax support for graphql
 Plug 'jparise/vim-graphql'
 
@@ -163,6 +167,7 @@ set smartcase       " ...unless we type a capital
 set noswapfile
 set nobackup
 set nowb
+set modifiable
 
 " CtrlP to ignore
 set wildignore+=*.swp,*.pyc
@@ -255,3 +260,6 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
+let g:vimspector_enable_mappings = 'HUMAN'
+packadd! vimspector
