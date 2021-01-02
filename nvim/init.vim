@@ -179,6 +179,16 @@ let g:ctrlp_show_hidden = 1
 
 " Short cuts:
 let mapleader=","
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+      split term://bash
+      resize 10
+endfunction
+nnoremap <c-n> :call OpenTerminal()<CR>
 map ; :Files<CR>
 map <C-]> :NERDTreeToggle<CR>
 map <C-F> :Ag<CR>
