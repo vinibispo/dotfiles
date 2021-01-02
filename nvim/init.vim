@@ -39,7 +39,7 @@ Plug 'OmniSharp/omnisharp-vim'
 
 "Syntax format for jsx
 Plug 'maxmellon/vim-jsx-pretty'
-let g:ruby_host_prog='~/.rvm/gems/ruby-2.7.0/gems/neovim-0.8.1'
+let g:ruby_host_prog='~/.rvm/gems/ruby-2.7.2/bin/neovim-ruby-host'
 "Syntax support for graphql
 Plug 'jparise/vim-graphql'
 
