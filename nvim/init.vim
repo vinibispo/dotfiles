@@ -8,13 +8,12 @@ let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 
 
+source ~/dotfiles/nvim/basic-config.vim
 source ~/dotfiles/nvim/fzf.vim
 
 filetype plugin indent on    " required
-
 source ~/dotfiles/nvim/coc-config/init.vim
 
-source ~/dotfiles/nvim/basic-config.vim
 
 source ~/dotfiles/nvim/ctrlp.vim
 

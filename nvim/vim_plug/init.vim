@@ -41,7 +41,7 @@ Plug 'jparise/vim-graphql'
 
 Plug 'mattn/emmet-vim'
 "Search
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 
