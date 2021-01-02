@@ -57,6 +57,7 @@ export PATH="$PATH:$HOME/.rvm/bin" #rvm
 alias ls="ls --color=auto" #color to ls
 export EDITOR="nvim" #set editor as nvim
 # Set up android emulator
+alias rm="rm -i"
 alias mux="tmuxinator"
 # Set up yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
