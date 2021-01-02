@@ -263,6 +263,6 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
-
+let g:far#enable_undo=1
 let g:vimspector_enable_mappings = 'HUMAN'
 packadd! vimspector
