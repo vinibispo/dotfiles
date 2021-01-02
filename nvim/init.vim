@@ -73,6 +73,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
+let $FZF_DEFAULT_COMMAND = 'ag -g""'
 let g:fzf_branch_actions = {
       \ 'rebase': {
       \   'prompt': 'Rebase> ',
