@@ -29,6 +29,7 @@ set nofoldenable        "dont fold by default
 
 " ================ Completion =======================
 
+
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
@@ -78,7 +79,6 @@ set smartindent
 set nu
 set nowrap
 set smartcase
-set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
