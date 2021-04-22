@@ -21,6 +21,10 @@ Plug 'godlygeek/tabular'
 Plug 'puremourning/vimspector'
 Plug 'itsvinayak/image.vim'
 Plug 'szw/vim-maximizer'
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
 "Themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terroo/vim-auto-markdown'
@@ -53,3 +57,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
+let g:UltiSnipsExpandTrigger="<tab>"
+" list all snippets for current filetype
+let g:UltiSnipsListSnippets="<c-l>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
