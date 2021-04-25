@@ -13,7 +13,7 @@ if [[ -f "$ASDF_DIR/asdf.sh" ]]; then
   . "$ASDF_DIR/asdf.sh"
 
     # Load completions
-    if [[ -f "$ASDF_COMPLETIONS/asdf.bash" ]]; then
-      . "$ASDF_COMPLETIONS/asdf.bash"
-    fi
+    #if [[ -f "$ASDF_COMPLETIONS/asdf.bash" ]]; then
+      #. "$ASDF_COMPLETIONS/asdf.bash"
+    #fi
 fi
