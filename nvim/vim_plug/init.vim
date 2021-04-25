@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 "Imported ones
+Plug 'morhetz/gruvbox'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'stsewd/fzf-checkout.vim'
