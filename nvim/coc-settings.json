@@ -1,5 +1,6 @@
 {
   "eslint.autoFixOnSave": true,
+  "npm.binPath": "/home/vinibispodev/.asdf/installs/nodejs/12.15.0/bin/npm",
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
