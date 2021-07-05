@@ -53,9 +53,18 @@ Plug 'junegunn/fzf.vim'
 "Onedark theme
 Plug 'joshdick/onedark.vim'
 
-Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'sheerun/vim-polyglot'
+
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"

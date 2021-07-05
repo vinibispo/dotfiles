@@ -11,7 +11,7 @@ endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 map ; :Files<CR>
 map <C-]> :NERDTreeToggle<CR>
-map <C-F> :Ag<CR>
+map <C-F> :Rg<CR>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>gc :GBranches
 map <F5> :e!<CR>                    " force reload current file
@@ -33,6 +33,10 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>t :CtrlPTag<cr>
 map <leader>ev :e ~/dotfiles/nvim/init.vim <CR>
 map <leader>sv :source ~/.config/nvim/init.vim <CR>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 "nmap <ESC> :call coc#util#float_hide() <CR>
 "autocmd CursorHold * silent call CocActionAsync('doHover')
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
