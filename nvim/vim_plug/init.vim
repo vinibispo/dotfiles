@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.nvim/plugged')
 "Imported ones
 Plug 'morhetz/gruvbox'
 Plug 'bronson/vim-trailing-whitespace'
@@ -7,6 +7,7 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'erickzanardo/vim-xclip'
 Plug 'ervandew/supertab'
+Plug 'npxbr/glow.nvim', {'do': ':GlowInstall', 'branch': 'main'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tmux-plugins/vim-tmux'
@@ -23,6 +24,9 @@ Plug 'puremourning/vimspector'
 Plug 'itsvinayak/image.vim'
 Plug 'szw/vim-maximizer'
 Plug 'SirVer/ultisnips'
+
+
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
