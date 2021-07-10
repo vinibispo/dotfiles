@@ -1,9 +1,10 @@
+current_directory="$(dirname "$0")"
 source ~/.zplug/init.zsh #init zplug
-source ~/dotfiles/zsh/ruby.plugin.zsh
-source ~/dotfiles/zsh/archlinux.plugin.zsh
-source ~/dotfiles/zsh/bundle.plugin.zsh
-source ~/dotfiles/zsh/git.plugin.zsh
-source ~/dotfiles/zsh/asdf.plugin.zsh
+source "$current_directory/zsh_plugins/ruby.plugin.zsh"
+source "$current_directory/zsh_plugins/archlinux.plugin.zsh"
+source "$current_directory/zsh_plugins/bundle.plugin.zsh"
+source "$current_directory/zsh_plugins/git.plugin.zsh"
+source "$current_directory/zsh_plugins/asdf.plugin.zsh"
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
