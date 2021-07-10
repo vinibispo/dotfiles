@@ -1,6 +1,9 @@
 {
   "eslint.autoFixOnSave": true,
-  "npm.binPath": "/home/vinibispodev/.asdf/installs/nodejs/12.15.0/bin/npm",
+  "solargraph.folding": true,
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true,
+  "coc.preferences.formatOnSaveFiletypes": ["ruby", "javascript", "typescript", "javascriptreact", "typescriptreact"],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
