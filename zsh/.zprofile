@@ -5,6 +5,9 @@ source "$current_directory/zsh_plugins/archlinux.plugin.zsh"
 source "$current_directory/zsh_plugins/bundle.plugin.zsh"
 source "$current_directory/zsh_plugins/git.plugin.zsh"
 source "$current_directory/zsh_plugins/asdf.plugin.zsh"
+source "$current_directory/zsh_plugins/ranger_cd.zsh"
+source "$current_directory/zsh_plugins/common_aliases.zsh"
+source "$current_directory/zsh_plugins/clipboard.zsh"
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
@@ -58,13 +61,6 @@ zplug "zsh-users/zsh-autosuggestions" #set zsh-autosuggestions
 zplug "zsh-users/zsh-completions" #set zsh-completions
 zplug "b4b4r07/emoji-cli"
 zplug load # load zplug
-alias ls="ls --color=auto" #color to ls
-export EDITOR="nvim" #set editor as nvim
-# Set up android emulator
-alias rm="rm -i"
-alias mux="tmuxinator"
-# Set up yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 
