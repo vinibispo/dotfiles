@@ -1,7 +1,7 @@
-# /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
+# /home/vinibispodev/.config/tmuxinator/game_medal.yml
 
-name: segmentoFarma
-root: ~/Documents/Freelancer/MarceloTorneSe/segmentoFarma
+name: game_medal
+root: ~/Documents/UpMedal
 
 # Optional tmux socket
 # socket_name: foo
@@ -40,15 +40,22 @@ root: ~/Documents/Freelancer/MarceloTorneSe/segmentoFarma
 
 # Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
 # startup_pane: 1
-
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
 windows:
-  - app:
+  - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
+      root: ~/Documents/UpMedal/game_medal
       panes:
-        - sudo systemctl start mongod && bundle exec rails s
+        - yarn start
+        - git branch
+        - vim .
+  - backend:
+      layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
+      root: ~/Documents/UpMedal/admin-maratonavirtual
+      panes:
+        - sudo systemctl stop postgresql && docker-compose up -d && docker attach admin-maratonavirtual_web_1
         - git branch
         - git pull origin master && vim .
-  - logs:  bpytop
+  - logs:  htop

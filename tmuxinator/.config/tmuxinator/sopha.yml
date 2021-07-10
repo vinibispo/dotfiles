@@ -1,7 +1,7 @@
-# /home/vinibispodev/.config/tmuxinator/game_medal.yml
+# /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
 
-name: game_medal
-root: ~/Documents/UpMedal
+name: sopha
+root: ~/Documents/Sopha/zoom
 
 # Optional tmux socket
 # socket_name: foo
@@ -45,16 +45,18 @@ root: ~/Documents/UpMedal
 # attach: false
 
 windows:
-  - react_app:
+  - backend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
       panes:
-        - cd game_medal && yarn start
-        - cd game_medal
-        - cd game_medal && vim .
-  - admin_maratona_virtual:
+        - sudo systemctl start postgresql && bundle exec rails s
+        - sudo systemctl start redis && bundle exec sidekiq -C config/sidekiq.yml
+        - vim .
+
+  - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
+      root: ~/Documents/Sopha/zoom/frontend
       panes:
-        - cd admin-maratonavirtual && docker-compose up -d && docker attach admin-maratonavirtual_web_1
-        - cd admin-maratonavirtual && git branch
-        - cd admin-maratonavirtual && git pull origin master && vim .
-  - logs:  bpytop
+        - npm run dist && npm start
+        - ls
+        - vim .
+  - logs:  htop
