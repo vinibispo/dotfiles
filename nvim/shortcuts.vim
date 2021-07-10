@@ -8,10 +8,16 @@ function! OpenTerminal()
       split term://bash
       resize 10
 endfunction
+
+nnoremap ; <cmd>Telescope find_files<cr>
+map <C-F> <cmd>Telescope live_grep<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <c-n> :call OpenTerminal()<CR>
-map ; :Files<CR>
+"map ; :Files<CR>
 map <C-]> :NERDTreeToggle<CR>
-map <C-F> :Rg<CR>
+"map <C-F> :Rg<CR>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>gc :GBranches
 map <F5> :e!<CR>                    " force reload current file
