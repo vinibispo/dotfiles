@@ -1,4 +1,3 @@
-lua require('init')
 syntax on
 filetype off
 set confirm
