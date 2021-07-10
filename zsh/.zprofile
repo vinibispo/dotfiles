@@ -1,13 +1,12 @@
-current_directory="$(dirname "$0")"
 source ~/.zplug/init.zsh #init zplug
-source "$current_directory/zsh_plugins/ruby.plugin.zsh"
-source "$current_directory/zsh_plugins/archlinux.plugin.zsh"
-source "$current_directory/zsh_plugins/bundle.plugin.zsh"
-source "$current_directory/zsh_plugins/git.plugin.zsh"
-source "$current_directory/zsh_plugins/asdf.plugin.zsh"
-source "$current_directory/zsh_plugins/ranger_cd.zsh"
-source "$current_directory/zsh_plugins/common_aliases.zsh"
-source "$current_directory/zsh_plugins/clipboard.zsh"
+source "./zsh_plugins/ruby.plugin.zsh"
+source "./zsh_plugins/archlinux.plugin.zsh"
+source "./zsh_plugins/bundle.plugin.zsh"
+source "./zsh_plugins/git.plugin.zsh"
+source "./zsh_plugins/asdf.plugin.zsh"
+source "./zsh_plugins/ranger_cd.zsh"
+source "./zsh_plugins/common_aliases.zsh"
+source "./zsh_plugins/clipboard.zsh"
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
