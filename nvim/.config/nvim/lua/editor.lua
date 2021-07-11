@@ -127,6 +127,8 @@ local function set_mapping()
     {"n", "S", "<Cmd>w<CR>", opts},
     -- quit when use Q
     {"n", "Q", "<Cmd>q<CR>", opts},
+    -- toggle nvim_tree_lua
+    {"n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", opts},
     -- auto indent pasted text
     {"n", "p", "p=`]", opts},
     {"n", "P", "P=`]", opts},
