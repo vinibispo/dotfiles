@@ -1,31 +1,33 @@
 -- main editor configs
 local api = vim.api
 local opt = vim.opt
+local g = vim.g
+local cmd = vim.cmd
 
 local function set_globals()
-  vim.g.ruby_host_prog = "~/.asdf/shims/neovim-ruby-host"
-  vim.g.coc_node_path = "~/.asdf/installs/nodejs/12.15.0/bin/node"
-  vim.g.mapleader = ","
-  vim.g.nvim_tree_width = 40
-  vim.g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
-  vim.g.nvim_tree_gitignore = 1
-  vim.g.nvim_tree_auto_open = 1
-  vim.g.nvim_tree_auto_close = 1
-  vim.g.nvim_tree_quit_on_open = 1
-  vim.g.nvim_tree_follow = 1
-  vim.g.nvim_tree_indent_markers = 1
-  vim.g.nvim_tree_hide_dotfiles = 1
-  vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_highlight_opened_files = 1
-  vim.g.nvim_tree_root_folder_modifier = ':~'
-  vim.g.nvim_tree_tab_open = 1
-  vim.g.nvim_tree_auto_resize = 0
-  vim.g.nvim_tree_add_trailing = 1
-  vim.g.nvim_tree_group_empty = 1
-  vim.g.nvim_tree_lsp_diagnostics = 1
-  vim.g.nvim_tree_disable_window_picker = 1
-  vim.g.nvim_tree_icon_padding = ' '
-  vim.g.nvim_tree_update_cwd = 1
+  g.ruby_host_prog = "~/.asdf/shims/neovim-ruby-host"
+  g.coc_node_path = "~/.asdf/installs/nodejs/12.15.0/bin/node"
+  g.mapleader = ","
+  g.nvim_tree_width = 40
+  g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
+  g.nvim_tree_gitignore = 1
+  g.nvim_tree_auto_open = 1
+  g.nvim_tree_auto_close = 1
+  g.nvim_tree_quit_on_open = 1
+  g.nvim_tree_follow = 1
+  g.nvim_tree_indent_markers = 1
+  g.nvim_tree_hide_dotfiles = 1
+  g.nvim_tree_git_hl = 1
+  g.nvim_tree_highlight_opened_files = 1
+  g.nvim_tree_root_folder_modifier = ':~'
+  g.nvim_tree_tab_open = 1
+  g.nvim_tree_auto_resize = 0
+  g.nvim_tree_add_trailing = 1
+  g.nvim_tree_group_empty = 1
+  g.nvim_tree_lsp_diagnostics = 1
+  g.nvim_tree_disable_window_picker = 1
+  g.nvim_tree_icon_padding = ' '
+  g.nvim_tree_update_cwd = 1
 end
 
 local function set_options()
@@ -46,6 +48,7 @@ local function set_options()
     laststatus = 2,
     relativenumber = true,
     vb = true,
+    confirm = true,
     showmode = false,
     smartindent = true,
     clipboard = 'unnamed,unnamedplus',
@@ -79,8 +82,8 @@ local function set_options()
     opt[key] = val
   end
 
-  vim.cmd("colorscheme gruvbox")
-  vim.cmd([[
+  cmd("colorscheme gruvbox")
+  cmd([[
         augroup LineNumbers
             autocmd!
             autocmd InsertEnter * set relativenumber
@@ -127,6 +130,18 @@ local function set_mapping()
     {"n", "S", "<Cmd>w<CR>", opts},
     -- quit when use Q
     {"n", "Q", "<Cmd>q<CR>", opts},
+    -- disable arrows
+    {"n", "<left>", "<nop>", opts},
+    {"n", "<right>", "<nop>", opts},
+    {"i", "<left>", "<nop>", opts},
+    {"i", "<right>", "<nop>", opts},
+    -- stop c, s and d from yanking
+    {"n", "c", [["_c]], opts},
+    {"x", "c", [["_c]], opts},
+    {"n", "d", [["_d]], opts},
+    {"x", "d", [["_d]], opts},
+    -- stop p from overwtitting the register (by re-yanking it)
+    {"x", "p", "pgvy", opts},
     -- toggle nvim_tree_lua
     {"n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", opts},
     -- auto indent pasted text

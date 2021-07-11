@@ -32,7 +32,8 @@ return require("packer").startup(function(use)
         {"n", "<C-F>", [[<Cmd>Telescope live_grep<CR>]], opts},
         {"n", "<leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
         {"n", "<leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
-        {"n", "<leader>b", [[<Cmd>Telescope buffers]], opts},
+        {"n", "<leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
+        {"n", "<leader>gb", [[<Cmd>Telescope git_branches<CR>]], opts},
       }
       for _, val in pairs(mapping) do
         vim.api.nvim_set_keymap(unpack(val))
