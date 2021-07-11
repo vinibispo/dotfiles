@@ -1,12 +1,14 @@
+# if ZSH_DOTFILES is not defined, use the current script's directory
+[[ -z "$ZSH_DOTFILES" ]] && export ZSH_DOTFILES="${${(%):-%x}:a:h}"
 source ~/.zplug/init.zsh #init zplug
-source "./zsh_plugins/ruby.plugin.zsh"
-source "./zsh_plugins/archlinux.plugin.zsh"
-source "./zsh_plugins/bundle.plugin.zsh"
-source "./zsh_plugins/git.plugin.zsh"
-source "./zsh_plugins/asdf.plugin.zsh"
-source "./zsh_plugins/ranger_cd.zsh"
-source "./zsh_plugins/common_aliases.zsh"
-source "./zsh_plugins/clipboard.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/ruby.plugin.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/archlinux.plugin.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/bundle.plugin.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/git.plugin.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/asdf.plugin.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/ranger_cd.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/common_aliases.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/clipboard.zsh"
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
