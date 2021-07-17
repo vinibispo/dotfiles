@@ -21,6 +21,13 @@ return require("packer").startup(function(use)
   -- colorscheme
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
 
+  -- color
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require('colorizer').setup()
+    end,
+  }
   -- search, grep
   use {
     "nvim-telescope/telescope.nvim",
