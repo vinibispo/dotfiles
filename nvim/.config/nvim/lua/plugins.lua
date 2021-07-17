@@ -21,6 +21,12 @@ return require("packer").startup(function(use)
   -- colorscheme
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
 
+  -- my plugin
+  use {
+    "~/Documents/ViniBispo/ruby.nvim",
+    requires = 'nvim-lua/plenary.nvim',
+    ft = {'ruby'},
+  }
   -- color
   use {
     "norcalli/nvim-colorizer.lua",
