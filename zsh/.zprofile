@@ -10,12 +10,15 @@ source "$ZSH_DOTFILES/zsh_plugins/ranger_cd.zsh"
 source "$ZSH_DOTFILES/zsh_plugins/common_aliases.zsh"
 source "$ZSH_DOTFILES/zsh_plugins/clipboard.zsh"
 SPACESHIP_PROMPT_ORDER=(
+  time
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
   git           # Git section (git_branch + git_status)
   hg            # Mercurial section (hg_branch  + hg_status)
   package       # Package version
+  gradle
+  maven
   node          # Node.js section
   ruby          # Ruby section
   elixir        # Elixir section
@@ -27,19 +30,18 @@ SPACESHIP_PROMPT_ORDER=(
   haskell       # Haskell Stack section
   julia         # Julia section
   docker        # Docker section
+  gcloud
   aws           # Amazon Web Services section
   venv          # virtualenv section
   conda         # conda virtualenv section
   pyenv         # Pyenv section
   dotnet        # .NET section
   ember         # Ember.js section
-  #kubecontext   # Kubectl context section
   terraform     # Terraform workspace section
   time
   exec_time     # Execution time
   line_sep      # Line break
   battery       # Battery level and status
-
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
