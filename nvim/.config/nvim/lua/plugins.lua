@@ -23,7 +23,7 @@ return require("packer").startup(function(use)
 
   -- my plugin
   use {
-    "~/Documents/ViniBispo/ruby.nvim",
+    "~/Documents/Code/ViniBispo/ruby.nvim",
     requires = 'nvim-lua/plenary.nvim',
     ft = {'ruby'},
   }
