@@ -67,3 +67,6 @@ zplug load # load zplug
 
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 
+# Ubuntu make installation of Ubuntu Make binary symlink
+PATH=/home/vinibispodev/.local/share/umake/bin:$PATH
+
