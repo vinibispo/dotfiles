@@ -21,11 +21,124 @@ return require("packer").startup(function(use)
   -- colorscheme
   use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"}}
 
+  -- discord
+  use {
+    'andweeb/presence.nvim',
+    config = function()
+      -- The setup config table shows all available config options with their default values:
+      require("presence"):setup({
+        -- General options
+        auto_update = true, -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
+        neovim_image_text = "The One True Text Editor", -- Text displayed when hovered over the Neovim image
+        main_image = "neovim", -- Main image display (either "neovim" or "file")
+        client_id = "869658277355589703", -- Use your own Discord application client id (not recommended)
+        log_level = nil, -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
+        debounce_timeout = 10, -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
+        enable_line_number = false, -- Displays the current line number instead of the current project
+
+        -- Rich Presence text options
+        editing_text = "Editing %s", -- Format string rendered when an editable file is loaded in the buffer
+        file_explorer_text = "Browsing %s", -- Format string rendered when browsing a file explorer
+        git_commit_text = "Committing changes", -- Format string rendered when commiting changes in git
+        plugin_manager_text = "Managing plugins", -- Format string rendered when managing plugins
+        reading_text = "Reading %s", -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer
+        workspace_text = "Working on %s", -- Workspace format string (either string or function(git_project_name: string|nil, buffer: string): string)
+        line_number_text = "Line %s out of %s", -- Line number format string (for when enable_line_number is set to true)
+      })
+    end,
+  }
+  -- git
+
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {'nvim-lua/plenary.nvim'},
+    config = function()
+      require('gitsigns').setup {
+        signs = {
+          add = {
+            hl = 'GitSignsAdd',
+            text = '│',
+            numhl = 'GitSignsAddNr',
+            linehl = 'GitSignsAddLn',
+          },
+          change = {
+            hl = 'GitSignsChange',
+            text = '│',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn',
+          },
+          delete = {
+            hl = 'GitSignsDelete',
+            text = '_',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn',
+          },
+          topdelete = {
+            hl = 'GitSignsDelete',
+            text = '‾',
+            numhl = 'GitSignsDeleteNr',
+            linehl = 'GitSignsDeleteLn',
+          },
+          changedelete = {
+            hl = 'GitSignsChange',
+            text = '~',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn',
+          },
+        },
+        numhl = false,
+        linehl = false,
+        keymaps = {
+          -- Default keymap options
+          noremap = true,
+
+          ['n ]c'] = {
+            expr = true,
+            "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'",
+          },
+          ['n [c'] = {
+            expr = true,
+            "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'",
+          },
+
+          ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+          ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+          ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+          ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+          ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+          ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+          ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+          ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+
+          -- Text objects
+          ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+          ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+        },
+        watch_index = {interval = 1000, follow_files = true},
+        current_line_blame = false,
+        current_line_blame_delay = 1000,
+        current_line_blame_position = 'eol',
+        sign_priority = 6,
+        update_debounce = 100,
+        status_formatter = nil, -- Use default
+        word_diff = false,
+        use_decoration_api = true,
+        use_internal_diff = true, -- If luajit is present
+      }
+    end,
+  }
+
   -- my plugin
   use {
-    "~/Documents/Code/ViniBispo/ruby.nvim",
-    requires = 'nvim-lua/plenary.nvim',
-    ft = {'ruby'},
+    'vinibispo/ruby.nvim',
+    ft = {'ruby'}, -- optional
+    requires = {'nvim-lua/plenary.nvim'},
+    config = function() -- optional
+      require("ruby_nvim").setup({
+        test_cmd = "ruby", -- the default value
+        test_args = {}, -- the default value
+      })
+    end,
   }
   -- color
   use {
