@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/game_medal.yml
 
 name: embalar
-root: ~/Documents/UpMedal
+root: ~/Documents/Code/UpMedal
 
 # Optional tmux socket
 # socket_name: foo
@@ -45,7 +45,7 @@ root: ~/Documents/UpMedal
 
 windows:
   - frontend:
-      root: ~/Documents/UpMedal/embalar_app
+      root: ~/Documents/Code/UpMedal/embalar_app
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
       panes:
         - yarn start
@@ -53,7 +53,7 @@ windows:
         - vim .
   - backend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
-      root: ~/Documents/UpMedal/embalar_api
+      root: ~/Documents/Code/UpMedal/embalar_api
       panes:
         - sudo systemctl stop postgresql && docker-compose up -d && docker attach embalar_api_web_1
         - git branch

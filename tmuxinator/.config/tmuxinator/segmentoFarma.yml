@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
 
 name: segmentoFarma
-root: ~/Documents/Freelancer/MarceloTorneSe/segmentoFarma
+root: ~/Documents/Code/Freelancer/MarceloTorneSe/segmentoFarma
 
 # Optional tmux socket
 # socket_name: foo

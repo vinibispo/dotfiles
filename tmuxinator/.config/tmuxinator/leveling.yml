@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/game_medal.yml
 
 name: leveling_gama
-root: ~/Documents/Freelancer/DaniloTorneSe/Gama
+root: ~/Documents/Code/Freelancer/DaniloTorneSe/Gama
 
 # Optional tmux socket
 # socket_name: foo

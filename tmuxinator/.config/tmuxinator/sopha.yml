@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
 
 name: sopha
-root: ~/Documents/Sopha/zoom
+root: ~/Documents/Code/Sopha/sopha
 
 # Optional tmux socket
 # socket_name: foo
@@ -12,7 +12,7 @@ root: ~/Documents/Sopha/zoom
 # Project hooks
 
 # Runs on project start, always
-# on_project_start: command
+on_project_start: sudo systemctl stop postgresql && sudo systemctl stop redis-server && docker-compose up -d
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -24,7 +24,7 @@ root: ~/Documents/Sopha/zoom
 # on_project_exit: command
 
 # Run on project stop
-# on_project_stop: command
+on_project_stop: docker-compose down
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
@@ -48,15 +48,15 @@ windows:
   - backend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
       panes:
-        - sudo systemctl start postgresql && bundle exec rails s
-        - sudo systemctl start redis && bundle exec sidekiq -C config/sidekiq.yml
+        - docker attach zoom-api
+        - docker attach sidekiq
         - vim .
 
   - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
-      root: ~/Documents/Sopha/zoom/frontend
+      root: ~/Documents/Code/Sopha/sopha/frontend
       panes:
-        - npm run dist && npm start
+        - cd .. && docker attach sopha_frontend.zoom.local_1
         - ls
         - vim .
   - logs:  htop

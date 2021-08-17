@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/game_medal.yml
 
 name: game_medal
-root: ~/Documents/UpMedal
+root: ~/Documents/Code/UpMedal
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,14 +46,14 @@ root: ~/Documents/UpMedal
 windows:
   - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
-      root: ~/Documents/UpMedal/game_medal
+      root: ~/Documents/Code/UpMedal/game_medal
       panes:
         - yarn start
         - git branch
         - vim .
   - backend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
-      root: ~/Documents/UpMedal/admin-maratonavirtual
+      root: ~/Documents/Code/UpMedal/admin-maratonavirtual
       panes:
         - sudo systemctl stop postgresql && docker-compose up -d && docker attach admin-maratonavirtual_web_1
         - git branch
