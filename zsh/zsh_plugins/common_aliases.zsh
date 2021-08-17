@@ -5,3 +5,6 @@ alias ls="ls --color=auto" #color to ls
 export EDITOR="nvim" #set editor as nvim
 alias rm="rm -i"
 alias mux="tmuxinator"
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
