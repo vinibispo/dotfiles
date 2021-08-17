@@ -131,10 +131,10 @@ local function set_mapping()
     -- quit when use Q
     {"n", "Q", "<Cmd>q<CR>", opts},
     -- disable arrows
-    {"n", "<left>", "<nop>", opts},
-    {"n", "<right>", "<nop>", opts},
-    {"i", "<left>", "<nop>", opts},
-    {"i", "<right>", "<nop>", opts},
+    -- {"n", "<left>", "<nop>", opts},
+    -- {"n", "<right>", "<nop>", opts},
+    -- {"i", "<left>", "<nop>", opts},
+    -- {"i", "<right>", "<nop>", opts},
     -- stop c, s and d from yanking
     {"n", "c", [["_c]], opts},
     {"x", "c", [["_c]], opts},
