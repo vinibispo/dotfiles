@@ -82,7 +82,7 @@ local function set_options()
     opt[key] = val
   end
 
-  cmd("colorscheme gruvbox")
+  cmd("colorscheme nord")
   cmd([[
         augroup LineNumbers
             autocmd!
@@ -153,6 +153,14 @@ local function set_mapping()
   end
 end
 
+local function set_theme()
+  g.nord_contrast = true
+  g.nord_borders = false
+  g.nord_disable_background = false
+  require('nord').set()
+end
+
 set_globals()
 set_options()
 set_mapping()
+set_theme()
