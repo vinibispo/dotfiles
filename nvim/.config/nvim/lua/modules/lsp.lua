@@ -2,11 +2,7 @@
 local nvim_lsp = require("lspconfig")
 local saga = require("lspsaga")
 local lspinstall = require("lspinstall")
-saga.init_lsp_saga({
-  error_sign = "✗",
-  warn_sign = "⚠",
-  code_action_prompt = {enable = false},
-})
+saga.init_lsp_saga({error_sign = "✗", warn_sign = "⚠"})
 
 -- configure completion
 require("compe").setup {
@@ -131,6 +127,20 @@ local function on_attach(client, bufnr)
     },
   }
 
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca",
+                              [[<Cmd>lua require('lspsaga.codeaction').code_action()<CR>]],
+                              opts)
+
+  vim.api.nvim_buf_set_keymap(bufnr, "v", "<leader>ca",
+                              [[<Cmd>lua require('lspsaga.codeaction').range_code_action()<CR>]],
+                              opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-a>",
+                              [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]],
+                              opts)
+
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-b>",
+                              [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]],
+                              opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "Z",
                               [[<Cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]],
                               opts)
