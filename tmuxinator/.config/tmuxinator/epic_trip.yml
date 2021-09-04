@@ -1,7 +1,7 @@
-# /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
+# /home/vinibispodev/.config/tmuxinator/game_medal.yml
 
-name: segmentoFarma
-root: ~/Documents/Code/Freelancer/MarceloTorneSe/segmentoFarma
+name: game_medal
+root: ~/Documents/Code/RenanSopha/myepictrip
 
 # Optional tmux socket
 # socket_name: foo
@@ -12,9 +12,19 @@ root: ~/Documents/Code/Freelancer/MarceloTorneSe/segmentoFarma
 # Project hooks
 
 # Runs on project start, always
-on_project_start: sudo systemctl stop mongodb && docker-compose up -d
+# on_project_start: command
 
-on_project_stop: docker-compose down
+# Run on project start, the first time
+# on_project_first_start: command
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+# on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
@@ -30,15 +40,14 @@ on_project_stop: docker-compose down
 
 # Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
 # startup_pane: 1
-
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
 windows:
-  - app:
+  - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
       panes:
-        - docker attach segmentofarma_web_1
+        - yarn dev
         - git branch
         - vim .
   - logs:  htop
