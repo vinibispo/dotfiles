@@ -18,6 +18,8 @@ vim.cmd([[ autocmd BufWritePost plugins.lua PackerCompile ]])
 return require("packer").startup(function(use)
   use {"wbthomason/packer.nvim"}
 
+  -- emmet
+  use {'mattn/emmet-vim'}
   -- rest
   use {
     'NTBBloodbath/rest.nvim',
