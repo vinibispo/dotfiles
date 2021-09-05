@@ -1,13 +1,10 @@
--- main editor configs
 local api = vim.api
 local opt = vim.opt
 local g = vim.g
 local cmd = vim.cmd
 
 local function set_globals()
-  g.ruby_host_prog = "~/.asdf/shims/neovim-ruby-host"
-  g.coc_node_path = "~/.asdf/installs/nodejs/12.15.0/bin/node"
-  g.mapleader = ","
+  g.mapleader = ','
   g.nvim_tree_width = 40
   g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
   g.nvim_tree_gitignore = 1
@@ -29,9 +26,7 @@ local function set_globals()
   g.nvim_tree_icon_padding = ' '
   g.nvim_tree_update_cwd = 1
 end
-
 local function set_options()
-
   local undo_dir = os.getenv("HOME") .. '/.local/share/nvim/undo'
   local options = {
     incsearch = true,
@@ -81,8 +76,6 @@ local function set_options()
   for key, val in pairs(options) do
     opt[key] = val
   end
-
-  cmd("colorscheme nord")
   cmd([[
         augroup LineNumbers
             autocmd!
@@ -93,6 +86,7 @@ local function set_options()
             autocmd FocusLost * set norelativenumber
         augroup END
         ]])
+
 end
 
 local function set_mapping()
@@ -136,17 +130,16 @@ local function set_mapping()
     -- {"i", "<left>", "<nop>", opts},
     -- {"i", "<right>", "<nop>", opts},
     -- stop c, s and d from yanking
+    {"n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", opts},
     {"n", "c", [["_c]], opts},
     {"x", "c", [["_c]], opts},
     {"n", "d", [["_d]], opts},
     {"x", "d", [["_d]], opts},
     -- stop p from overwtitting the register (by re-yanking it)
     {"x", "p", "pgvy", opts},
-    -- toggle nvim_tree_lua
-    {"n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", opts},
-    -- auto indent pasted text
     {"n", "p", "p=`]", opts},
     {"n", "P", "P=`]", opts},
+
   }
   for _, val in pairs(mappings) do
     api.nvim_set_keymap(unpack(val))
@@ -154,10 +147,7 @@ local function set_mapping()
 end
 
 local function set_theme()
-  g.nord_contrast = true
-  g.nord_borders = false
-  g.nord_disable_background = false
-  require('nord').set()
+  cmd([[colorscheme nord]])
 end
 
 set_globals()
