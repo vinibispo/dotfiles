@@ -183,23 +183,27 @@ return require("packer").startup(function(use)
   -- lsp, completion, linting and snippets
 
   use {
-    'neovim/nvim-lspconfig',
+    "neovim/nvim-lspconfig",
     config = function()
-      require('modules.lsp')
+      require("modules.lsp")
     end,
-    requires = {
-      'glepnir/lspsaga.nvim',
-      'hrsh7th/nvim-compe',
-      'hrsh7th/vim-vsnip',
-      'hrsh7th/vim-vsnip-integ',
-    },
+    requires = {"kabouzeid/nvim-lspinstall"},
   }
   use {
-    'kabouzeid/nvim-lspinstall',
-    requires = {'neovim/nvim-lspconfig'},
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-path",
+    },
     config = function()
+      require('plugins.cmp')
     end,
   }
+
+  use {"glepnir/lspsaga.nvim"}
+  use {'kabouzeid/nvim-lspinstall', requires = {'neovim/nvim-lspconfig'}}
   use {"rafamadriz/friendly-snippets"}
   use {
     "akinsho/nvim-bufferline.lua",
