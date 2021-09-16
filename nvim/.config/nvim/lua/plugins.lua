@@ -61,56 +61,7 @@ return require("packer").startup(function(use)
     "nvim-telescope/telescope.nvim",
     requires = {"nvim-lua/plenary.nvim", "nvim-lua/popup.nvim"},
     config = function()
-      local opts = {noremap = true}
-      local mapping = {
-        {"n", ";", [[<Cmd>Telescope find_files<CR>]], opts},
-        {"n", "<C-F>", [[<Cmd>Telescope live_grep<CR>]], opts},
-        {"n", "<leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
-        {"n", "<leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
-        {"n", "<leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
-        {"n", "<leader>gb", [[<Cmd>Telescope git_branches<CR>]], opts},
-      }
-      for _, val in pairs(mapping) do
-        vim.api.nvim_set_keymap(unpack(val))
-      end
-
-      require('telescope').setup {
-        defaults = {
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-          },
-          prompt_prefix = "> ",
-          selection_caret = "> ",
-          entry_prefix = "  ",
-          initial_mode = "insert",
-          selection_strategy = "reset",
-          sorting_strategy = "descending",
-          layout_strategy = "horizontal",
-          layout_config = {horizontal = {mirror = false}, vertical = {mirror = false}},
-          file_sorter = require'telescope.sorters'.get_fuzzy_file,
-          file_ignore_patterns = {},
-          generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
-          winblend = 0,
-          border = {},
-          borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-          color_devicons = true,
-          use_less = true,
-          path_display = {},
-          set_env = {['COLORTERM'] = 'truecolor'}, -- default = nil,
-          file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-          grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-          qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
-
-          -- Developer configurations: Not meant for general override
-          buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
-        },
-      }
+      require('plugins.telescope')
     end,
   }
   use {
@@ -124,14 +75,7 @@ return require("packer").startup(function(use)
   use {
     'kyazdani42/nvim-web-devicons',
     config = function()
-      require'nvim-web-devicons'.setup {
-        -- your personnal icons can go here (to override)
-        -- DevIcon will be appended to `name`
-        override = {zsh = {icon = "", color = "#428850", name = "Zsh"}},
-        -- globally enable default icons (default to false)
-        -- will get overriden by `get_icons` option
-        default = true,
-      }
+      require('plugins.nvim-web-devicons')
     end,
   }
   use {
@@ -147,30 +91,7 @@ return require("packer").startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = function()
-      require'nvim-treesitter.configs'.setup {
-        ensure_installed = {
-          "python",
-          "lua",
-          "yaml",
-          "json",
-          "javascript",
-          "bash",
-          "typescript",
-          "ruby",
-        },
-        highlight = {enable = true, disable = {}},
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<leader>is",
-            node_incremental = "+",
-            scope_incremental = "w",
-            node_decremental = "-",
-          },
-        },
-
-        indent = {enable = true},
-      }
+      require('plugins.nvim-treesiter')
     end,
   }
   use {
