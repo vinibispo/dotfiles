@@ -1,7 +1,7 @@
 ASDF_DIR="${ASDF_DIR:-$HOME/.asdf}"
 ASDF_COMPLETIONS="$ASDF_DIR/completions"
 
-. $HOME/.asdf/asdf.sh
+. /opt/asdf-vm/asdf.sh
 # If not found, check for Homebrew package
 if [[ ! -f "$ASDF_DIR/asdf.sh" || ! -f "$ASDF_COMPLETIONS/asdf.bash" ]] && (( $+commands[brew] )); then
   ASDF_DIR="$(brew --prefix asdf)"
