@@ -12,7 +12,7 @@ root: ~/Documents/Code/Freelancer/MarceloTorneSe/segmentoFarma
 # Project hooks
 
 # Runs on project start, always
-on_project_start: sudo systemctl stop mongodb && docker-compose up -d
+on_project_start: docker-compose up -d
 
 on_project_stop: docker-compose down
 

@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
 
 name: sopha
-root: ~/Documents/Code/Sopha/sopha
+root: ~/Documents/Code/SophaTech/sopha
 
 # Optional tmux socket
 # socket_name: foo
@@ -12,7 +12,7 @@ root: ~/Documents/Code/Sopha/sopha
 # Project hooks
 
 # Runs on project start, always
-on_project_start: sudo systemctl stop postgresql && sudo systemctl stop redis-server && docker-compose up -d
+on_project_start: docker-compose up -d
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -54,9 +54,9 @@ windows:
 
   - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
-      root: ~/Documents/Code/Sopha/sopha/frontend
+      root: ~/Documents/Code/SophaTech/sopha/frontend
       panes:
-        - cd .. && docker attach sopha_frontend.zoom.local_1
+        - docker logs zoom-front -f
         - ls
         - vim .
   - logs:  htop
