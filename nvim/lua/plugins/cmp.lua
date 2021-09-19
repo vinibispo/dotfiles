@@ -10,6 +10,13 @@ local check_back_space = function()
 end
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+
+      vim.fn["vsnip#anonymous"](args.body)
+
+    end,
+  },
   mapping = {
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     ["<C-Space>"] = cmp.mapping.complete(),
@@ -30,17 +37,11 @@ cmp.setup({
   },
   sources = {
     {name = "buffer"},
-    {name = "calc"},
-    {name = "emoji"},
-    {name = "look"},
-    {name = "luasnip"},
     {name = "nvim_lsp"},
     {name = "nvim_lua"},
     {name = "path"},
     {name = "spell"},
-    {name = "tags"},
     {name = "treesitter"},
-    {name = "ultisnips"},
     {name = "vsnip"},
   },
 })
