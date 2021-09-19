@@ -117,9 +117,9 @@ local function set_mapping()
     -- move to next tab
     {"n", "<leader>x", "<Cmd>tabnext<CR>", opts},
     -- edit main lua file
-    {"n", "<leader>ev", "<Cmd>e ~/dotfiles/nvim/.config/nvim/init.lua<CR>", opts},
+    {"n", "<leader>ev", "<Cmd>e ~/dotfiles/nvim/init.lua<CR>", opts},
     -- source main lua file
-    {"n", "<leader>sv", "<Cmd>luafile ~/dotfiles/nvim/.config/nvim/init.lua<CR>", opts},
+    {"n", "<leader>sv", "<Cmd>luafile ~/dotfiles/nvim/init.lua<CR>", opts},
     -- save when use S
     {"n", "S", "<Cmd>w<CR>", opts},
     -- quit when use Q

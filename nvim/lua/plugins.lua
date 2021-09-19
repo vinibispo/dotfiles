@@ -113,20 +113,22 @@ return require("packer").startup(function(use)
     requires = {
       "f3fora/cmp-spell",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-calc",
-      "hrsh7th/cmp-emoji",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-vsnip",
-      "octaltree/cmp-look",
-      "quangnguyen30192/cmp-nvim-tags",
-      "quangnguyen30192/cmp-nvim-ultisnips",
+      'hrsh7th/vim-vsnip',
       "ray-x/cmp-treesitter",
-      "saadparwaiz1/cmp_luasnip",
     },
+
     config = function()
       require('plugins.cmp')
+    end,
+  }
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup {}
     end,
   }
 
