@@ -41,6 +41,9 @@ return require("packer").startup(function(use)
       "sindrets/diffview.nvim",
     },
     commit = '53772efc42263989d18d4a86c350b8b0e1f1b71b',
+    config = function()
+      require('plugins.neogit')
+    end,
   }
 
   -- ruby
