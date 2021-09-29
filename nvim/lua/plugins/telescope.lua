@@ -1,15 +1,28 @@
-local opts = {noremap = true}
-local mapping = {
-  {"n", ";", [[<Cmd>Telescope find_files<CR>]], opts},
-  {"n", "<C-F>", [[<Cmd>Telescope live_grep<CR>]], opts},
-  {"n", "<leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
-  {"n", "<leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
-  {"n", "<leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
-  {"n", "<leader>gb", [[<Cmd>Telescope git_branches<CR>]], opts},
-}
-for _, val in pairs(mapping) do
-  vim.api.nvim_set_keymap(unpack(val))
+local M = {}
+M.project_files = function()
+  local opts = {} -- define here if you want to define something
+  local ok = pcall(require'telescope.builtin'.git_files, opts)
+  if not ok then
+    require'telescope.builtin'.find_files(opts)
+  end
 end
+
+local function set_mapping()
+
+  local opts = {noremap = true}
+  local mapping = {
+    {"n", "<C-F>", [[<Cmd>Telescope live_grep<CR>]], opts},
+    {"n", "<leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
+    {"n", "<leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
+    {"n", "<leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
+    {"n", "<leader>gb", [[<Cmd>Telescope git_branches<CR>]], opts},
+  }
+  for _, val in pairs(mapping) do
+    vim.api.nvim_set_keymap(unpack(val))
+  end
+end
+
+set_mapping()
 
 require('telescope').setup {
   defaults = {
@@ -48,3 +61,4 @@ require('telescope').setup {
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
   },
 }
+return M
