@@ -22,8 +22,6 @@
 	rebase = false
 [hub]
 	protocol = ssh
-[init]
-	defaultBranch = master
 [credential]
 	helper = store
 [core]
@@ -50,3 +48,5 @@
   diffFilter = delta --color-only
 [color]
 	ui = true
+[init]
+	defaultBranch = master
