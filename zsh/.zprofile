@@ -9,6 +9,7 @@ source "$ZSH_DOTFILES/zsh_plugins/asdf.plugin.zsh"
 source "$ZSH_DOTFILES/zsh_plugins/ranger_cd.zsh"
 source "$ZSH_DOTFILES/zsh_plugins/common_aliases.zsh"
 source "$ZSH_DOTFILES/zsh_plugins/clipboard.zsh"
+source "$ZSH_DOTFILES/zsh_plugins/docker-compose.plugin.zsh"
 #zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "kiurchv/asdf.plugin.zsh", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2 #set sintax-highlighting
