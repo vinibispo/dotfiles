@@ -57,12 +57,12 @@ return require("packer").startup(function(use)
 
   -- git
   use {
-    "TimUntersberger/neogit",
+    "vinibispo/neogit",
     requires = {
       -- "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
     },
-    commit = '53772efc42263989d18d4a86c350b8b0e1f1b71b',
+    branch = 'dev',
     config = function()
       require('plugins.neogit')
     end,
