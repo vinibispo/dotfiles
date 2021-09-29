@@ -7,6 +7,14 @@ local function prettier()
   }
 end
 
+local function eslint()
+  return {
+    exe = 'eslint',
+    args = {"--stdin-filename", vim.api.nvim_buf_get_name(0), "--fix", "--cache"},
+    stdin = false,
+  }
+end
+
 require("formatter").setup({
   logging = false,
   filetype = {
@@ -20,7 +28,7 @@ require("formatter").setup({
       end,
     },
     javascript = {prettier},
-    javascriptreact = {prettier},
+    javascriptreact = {eslint},
     markdown = {prettier},
     typescript = {prettier},
     typescriptreact = {prettier},
@@ -56,4 +64,3 @@ vim.api.nvim_exec([[
         autocmd BufWritePost *.lua,*.json,*.rb,*.js,*.jsx,*.ts,*.tsx,*.md FormatWrite
     augroup END
 ]], true)
-
