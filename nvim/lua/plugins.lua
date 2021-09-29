@@ -23,6 +23,28 @@ return require("packer").startup(function(use)
 
   use {'shaunsingh/nord.nvim'}
 
+  -- commentary
+  use {
+    'b3nj5m1n/kommentary',
+    config = function()
+
+      require('kommentary.config').use_extended_mappings()
+    end,
+  }
+
+  -- todo
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end,
+  }
+
   -- yaml
   use {
     'cuducos/yaml.nvim',
