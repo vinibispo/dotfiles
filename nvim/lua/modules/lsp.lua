@@ -23,22 +23,29 @@ local function on_attach(client, bufnr)
     {"n", "gr", [[<Cmd>lua require('lspsaga.rename').rename()<CR>]], opts},
     {"n", "gh", [[<Cmd>lua require'lspsaga.provider'.lsp_finder()]], opts},
     {
+      "n",
+      "<leader>ca",
+      [[<Cmd>lua require('lspsaga.codeaction').range_code_action()<CR>']],
+      opts,
+    },
+    {
       "v",
       "<leader>ca",
       [[<Cmd>lua require('lspsaga.codeaction').range_code_action()<CR>']],
       opts,
     },
-    {"v", "ca", [[<Cmd>lua require('lspsaga.codeaction).code_action()]], opts},
+    {"n", "ca", [[<Cmd>lua require('lspsaga.codeaction).code_action()<CR>]], opts},
+    {"v", "ca", [[<Cmd>lua require('lspsaga.codeaction).code_action()<CR>]], opts},
     {
       "n",
       "<C-a>",
-      [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)]],
+      [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]],
       opts,
     },
     {
       "n",
       "<C-b>",
-      [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)]],
+      [[<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]],
       opts,
     },
     {
