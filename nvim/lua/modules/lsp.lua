@@ -31,7 +31,7 @@ local function on_attach(client, bufnr)
     {
       "v",
       "<leader>ca",
-      [[<Cmd>lua require('lspsaga.codeaction').range_code_action()<CR>']],
+      [[:<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>]],
       opts,
     },
     {"n", "ca", [[<Cmd>lua require('lspsaga.codeaction).code_action()<CR>]], opts},
@@ -60,7 +60,7 @@ local function on_attach(client, bufnr)
       [[<Cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]],
       opts,
     },
-    {"n", "Z", [[<Cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts},
+    {"n", "Z", [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts},
     {
       "n",
       "[g",
