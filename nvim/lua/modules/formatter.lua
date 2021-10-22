@@ -30,8 +30,8 @@ require("formatter").setup({
     javascript = {prettier},
     javascriptreact = {eslint},
     markdown = {prettier},
-    typescript = {prettier},
-    typescriptreact = {prettier},
+    typescript = {eslint},
+    typescriptreact = {eslint},
     json = {
       function()
         return {
