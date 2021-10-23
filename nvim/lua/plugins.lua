@@ -140,7 +140,7 @@ return require("packer").startup(function(use)
     config = function()
       require("modules.lsp")
     end,
-    requires = {"kabouzeid/nvim-lspinstall"},
+    requires = {"williamboman/nvim-lsp-installer"},
   }
   use {
     "hrsh7th/nvim-cmp",
@@ -177,7 +177,7 @@ return require("packer").startup(function(use)
   }
 
   use {"glepnir/lspsaga.nvim"}
-  use {'kabouzeid/nvim-lspinstall', requires = {'neovim/nvim-lspconfig'}}
+  use {'williamboman/nvim-lsp-installer', requires = {'neovim/nvim-lspconfig'}}
   use {"rafamadriz/friendly-snippets"}
   use {
     "akinsho/nvim-bufferline.lua",
