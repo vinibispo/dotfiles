@@ -6,12 +6,7 @@ local saga = require("lspsaga")
 saga.init_lsp_saga({
   error_sign = "✗",
   warn_sign = "⚠",
-  code_action_prompt = {
-    enable = true,
-    sign = true,
-    sign_priority = 20,
-    virtual_text = true,
-  },
+  code_action_prompt = {enable = false},
 })
 
 local function on_attach(client, bufnr)
@@ -61,7 +56,12 @@ local function on_attach(client, bufnr)
       [[<Cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]],
       opts,
     },
-    {"n", "Z", [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts},
+    {
+      "n",
+      "<leader>Z",
+      [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]],
+      opts,
+    },
     {
       "n",
       "[g",
@@ -116,8 +116,15 @@ local function make_config()
   }
 end
 
-local function setup_servers()
-  local installed_servers = servers.get_installed_servers()
+local function get_installed_servers()
+  local servers = {}
+  for _, server in pairs(installer.get_installed_servers()) do
+    table.insert(servers, server.name)
+  end
+  return servers
+end
+local function install_servers()
+  local installed_servers = get_installed_servers()
   local required_servers = {
     "bashls",
     "cssls",
@@ -126,27 +133,22 @@ local function setup_servers()
     "html",
     "jsonls",
     "sumneko_lua",
+    "eslint",
     "pylsp",
     "solargraph",
     "tsserver",
     "yamlls",
   }
-  local installed_servers = {}
-  for _, server in pairs(servers.get_installed_servers()) do
-    table.insert(installed_servers, server.name)
-  end
 
   for _, server in pairs(required_servers) do
     if not vim.tbl_contains(installed_servers, server) then
       installer.install(server)
-      table.insert(installed_servers, server)
     end
   end
 end
 
-setup_servers()
-
-lspinstall.post_install_hook = function()
-  setup_servers()
-  vim.cmd("bufdo e")
-end
+install_servers()
+installer.on_server_ready(function(server)
+  server:setup(make_config())
+  vim.cmd([[do User LspAttachBuffers ]])
+end)
