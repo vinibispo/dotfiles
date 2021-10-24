@@ -61,10 +61,7 @@ return require("packer").startup(function(use)
   -- git
   use {
     "vinibispo/neogit",
-    requires = {
-      -- "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-    },
+    requires = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"},
     branch = 'dev',
     config = function()
       require('plugins.neogit')
@@ -118,6 +115,18 @@ return require("packer").startup(function(use)
     end,
   }
 
+  use {
+    'mfussenegger/nvim-dap',
+    config = function()
+      local dap = require('dap')
+      dap.adapters.ruby = {
+        type = 'executable',
+        command = 'bundle',
+        args = {'exec', 'readapt', 'stdio'},
+      }
+    end,
+  }
+
   -- language syntax highlighting
   use {
     "nvim-treesitter/nvim-treesitter",
@@ -159,7 +168,7 @@ return require("packer").startup(function(use)
       require('plugins.cmp')
     end,
   }
-  use {
+  --[[ use {
     'windwp/nvim-autopairs',
     config = function()
       -- you need setup cmp first put this after cmp.setup()
@@ -174,7 +183,7 @@ return require("packer").startup(function(use)
         },
       })
     end,
-  }
+  } ]]
 
   use {"glepnir/lspsaga.nvim"}
   use {'williamboman/nvim-lsp-installer', requires = {'neovim/nvim-lspconfig'}}
