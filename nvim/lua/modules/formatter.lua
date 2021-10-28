@@ -27,7 +27,7 @@ require("formatter").setup({
         }
       end,
     },
-    javascript = {prettier},
+    javascript = {eslint},
     javascriptreact = {eslint},
     markdown = {prettier},
     typescript = {eslint},
