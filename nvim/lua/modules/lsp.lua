@@ -137,6 +137,7 @@ local function install_servers()
     "solargraph",
     "tsserver",
     "yamlls",
+    "jdtls",
   }
 
   for _, server in pairs(required_servers) do
