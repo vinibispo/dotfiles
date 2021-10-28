@@ -1,5 +1,4 @@
 local installer = require("nvim-lsp-installer")
-local servers = require("nvim-lsp-installer.servers")
 local lsp = require("lspconfig")
 local saga = require("lspsaga")
 
