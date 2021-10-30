@@ -185,7 +185,7 @@ return require("packer").startup(function(use)
     end,
   } ]]
 
-  use {"glepnir/lspsaga.nvim"}
+  use {"tami5/lspsaga.nvim", branch = 'nvim51'}
   use {'williamboman/nvim-lsp-installer', requires = {'neovim/nvim-lspconfig'}}
   use {"rafamadriz/friendly-snippets"}
   use {
