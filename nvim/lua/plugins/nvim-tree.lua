@@ -1,7 +1,9 @@
 -- following options are the default
+vim.g.nvim_tree_gitignore = 1
 require'nvim-tree'.setup {
   -- disables netrw completely
   disable_netrw = true,
+  filters = {dotfiles = true},
   -- hijack netrw window on startup
   hijack_netrw = true,
   -- open the tree when running this setup function
@@ -61,14 +63,9 @@ require'nvim-tree'.setup {
     },
   },
 }
-vim.g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
+
 vim.g.nvim_tree_add_trailing = 1
 vim.g.nvim_tree_highlight_opened_files = 1
 vim.cmd([[
-
-let g:nvim_tree_gitignore = 1 "0 by default
-
-let g:nvim_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
-
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
 ]])
