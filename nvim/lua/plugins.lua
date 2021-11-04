@@ -60,9 +60,8 @@ return require("packer").startup(function(use)
 
   -- git
   use {
-    "vinibispo/neogit",
+    "TimUntersberger/neogit",
     requires = {"nvim-lua/plenary.nvim", "sindrets/diffview.nvim"},
-    branch = 'dev',
     config = function()
       require('plugins.neogit')
     end,

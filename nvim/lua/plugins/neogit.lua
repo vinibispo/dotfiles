@@ -1,3 +1,4 @@
+require('plenary')
 local neogit = require("neogit")
 
 neogit.setup {
