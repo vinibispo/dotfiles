@@ -12,7 +12,7 @@ root: ~/Documents/Code/SophaTech/sopha
 # Project hooks
 
 # Runs on project start, always
-on_project_start: docker-compose up -d
+on_project_first_start: docker-compose up -d
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -56,7 +56,7 @@ windows:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
       root: ~/Documents/Code/SophaTech/sopha/frontend
       panes:
-        - docker logs zoom-front -f
+        - yarn start
         - ls
         - vim .
   - logs:  htop
