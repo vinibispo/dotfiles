@@ -55,6 +55,10 @@ local function add_test_helper(str)
   end
 end
 
+local function create_block(name)
+  return text(name .. ' do'), text({'', '  '}), insert(0, ''), text({'', 'end'})
+end
+
 luasnip.snippets = {
   lua = {
     snip('func', {
@@ -92,18 +96,70 @@ luasnip.snippets = {
   },
 
   ruby = {
-    snip({trig = 'astc', name = 'ActiveSupport::TestCase'},
+    snip({trig = 'clat', name = 'ActiveSupport::TestCase'},
          {add_test_helper(), create_test_class('ActiveSupport::TestCase')}),
-    snip({trig = 'apstc', name = 'ApplicationSystemTestCase'}, {
+    snip({trig = 'clat', name = 'ApplicationSystemTestCase'}, {
       add_test_helper('application_system_test_case'),
       create_test_class('ApplicationSystemTestCase'),
     }),
-    snip({trig = 'adit', name = 'ActionDispatch::IntegrationTest'},
+    snip({trig = 'clat', name = 'ActionDispatch::IntegrationTest'},
          {add_test_helper(), create_test_class('ActionDispatch::IntegrationTest')}),
+    snip({trig = 'clat', name = 'ActionMailer::TestCase'},
+         {add_test_helper(), create_test_class('ActionMailer::TestCase')}),
+    snip({trig = 'clat', name = 'ActionView::TestCase'},
+         {add_test_helper(), create_test_class('ActionView::TestCase')}),
+    snip({trig = 'clat', name = 'ActiveJob::TestCase'},
+         {add_test_helper(), create_test_class('ActiveJob::TestCase')}),
+    snip({trig = 'clat', name = 'Rails::Generators::TestCase'},
+         {add_test_helper(), create_test_class('Rails::Generators::TestCase')}),
+    snip({trig = 'setup', name = 'setup'}, {create_block('setup')}),
+    snip({trig = 'tear', name = 'teardown'}, {create_block('teardown')}),
+    snip({trig = 'as', name = 'assert(..)'}, {text('assert '), insert(1, 'test')}),
+    snip({trig = 'ase', name = 'assert_empty(..)'},
+         {text('assert_empty '), insert(1, 'test')}),
+    snip({trig = 'ase', name = 'assert_equal(..)'}, {
+      text('assert_equal '),
+      insert(2, 'expected'),
+      text(', '),
+      insert(1, 'current'),
+    }),
+    snip({trig = 'asi', name = 'assert_includes(..)'}, {
+      text('assert_includes '),
+      insert(2, 'collection'),
+      text(', '),
+      insert(1, 'item'),
+    }),
+
+    snip({trig = 'asio', name = 'assert_instance_of(..)'}, {
+      text('assert_instance_of '),
+      insert(2, 'ExpectedClass'),
+      text(', '),
+      insert(1, 'current_instance'),
+    }),
+    snip({trig = 'asko', name = 'assert_kind_of(..)'}, {
+      text('assert_kind_of '),
+      insert(2, 'ExpectedClass'),
+      text(', '),
+      insert(1, 'current_instance'),
+    }),
+    snip({trig = 'asid', name = 'assert_in_delta(..)'}, {
+      text('assert_in_delta '),
+      insert(1, 'expected_float'),
+      text(', '),
+      insert(2, 'current_float'),
+      insert(0, ' 2 ** -20'),
+    }),
+    snip({trig = 'asie', name = 'assert_in_epsilon(..)'}, {
+      text('assert_in_epsilon '),
+      insert(1, 'expected_float'),
+      text(', '),
+      insert(2, 'current_float'),
+      insert(0, ' 2 ** -20'),
+    }),
     snip({trig = 't', name = 'test'}, {
       text {'', 'test "'},
       insert(1, 'the truth'),
-      text(""),
+      text('"'),
       text({'', '  '}),
       insert(2, ' '),
       text({'', '  assert '}),
