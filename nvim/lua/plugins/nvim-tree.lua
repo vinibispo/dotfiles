@@ -1,5 +1,4 @@
 -- following options are the default
-vim.g.nvim_tree_gitignore = 1
 require'nvim-tree'.setup {
   -- disables netrw completely
   disable_netrw = true,
@@ -14,6 +13,9 @@ require'nvim-tree'.setup {
   auto_close = false,
   -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
   open_on_tab = false,
+  git = {
+    ignore = true
+  },
   -- hijacks new directory buffers when they are opened.
   update_to_buf_dir = {
     -- enable the feature
