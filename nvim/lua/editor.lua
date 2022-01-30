@@ -72,6 +72,10 @@ end
 local function set_mapping()
   local opts = {noremap = true}
   local mappings = {
+    {"i", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts},
+    {"s", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts},
+    {"i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts},
+    {"s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts},
     {"n", "<F5>", "<Cmd>e!<CR>", opts},
     {"n", "<leader>W", "<Cmd>w<CR>", opts},
     -- go window up
