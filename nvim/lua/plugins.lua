@@ -1,3 +1,26 @@
+-- hacked PackerRemove cmd
+PackerReinstall = function(name) -- usage example => :lua PackerReinstall "yaml.nvim"
+  if package.loaded["packer"] == nil then
+    print("Packer not installed or not loaded")
+  end
+
+  local utils = require("packer.plugin_utils")
+  local suffix = "/" .. name
+
+  local opt, start = utils.list_installed_plugins()
+  for _, group in pairs({opt, start}) do
+    if group ~= nil then
+      for dir, _ in pairs(group) do
+        if dir:sub(-string.len(suffix)) == suffix then
+          print("Removing", dir)
+          vim.cmd("!rm -rf " .. dir)
+          vim.cmd(":PackerSync")
+          return
+        end
+      end
+    end
+  end
+end
 local packer_exists = pcall(vim.cmd, [[ packadd packer.nvim ]])
 if not packer_exists then
   local dest = string.format("%s/site/pack/packer/opt/", vim.fn.stdpath("data"))
@@ -190,13 +213,31 @@ return require("packer").startup(function(use)
     end,
   } ]]
 
-  use {"tami5/lspsaga.nvim", branch = 'nvim51'}
+  use {"tami5/lspsaga.nvim"}
   use {'williamboman/nvim-lsp-installer', requires = {'neovim/nvim-lspconfig'}}
   use {"rafamadriz/friendly-snippets"}
+  use {'KabbAmine/zeavim.vim'}
+  -- Lua
+  use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end,
+  }
   use {
     "akinsho/nvim-bufferline.lua",
     config = function()
       require("bufferline").setup({options = {numbers = "buffer_id"}})
+    end,
+  }
+  use {
+    "ellisonleao/carbon-now.nvim",
+    config = function()
+      require('carbon-now').setup()
     end,
   }
 
