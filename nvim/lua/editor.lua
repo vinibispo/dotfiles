@@ -66,6 +66,9 @@ local function set_options()
             autocmd FocusLost * set norelativenumber
         augroup END
         ]])
+  cmd([[
+    autocmd BufEnter *.json.jbuilder set filetype=ruby
+  ]])
 
 end
 
@@ -108,6 +111,7 @@ local function set_mapping()
     {"n", "S", "<Cmd>w<CR>", opts},
     -- quit when use Q
     {"n", "Q", "<Cmd>q<CR>", opts},
+    {"v", "<leader>cn", "<Cmd>CarbonNow<CR>", {noremap = true, silent = true}},
     -- disable arrows
     -- {"n", "<left>", "<nop>", opts},
     -- {"n", "<right>", "<nop>", opts},
