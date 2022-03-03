@@ -64,13 +64,13 @@ local function on_attach(client, bufnr)
     {
       "n",
       "[g",
-      [[<Cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<CR>]],
+      [[<Cmd>lua require('lspsaga.diagnostic').diagnostic_jump_next()<CR>]],
       opts,
     },
     {
       "n",
       "]g",
-      [[<Cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev() <CR>]],
+      [[<Cmd>lua require('lspsaga.diagnostic').diagnostic_jump_prev() <CR>]],
       opts,
     },
   }
