@@ -1,5 +1,6 @@
 local luasnip = require("luasnip")
 luasnip.filetype_extend('ruby', {'rails'})
+luasnip.filetype_extend('vue', {'vue'})
 local fn = vim.fn
 luasnip.config.setup {
   history = true,
@@ -29,6 +30,7 @@ local function split(str, sep)
 end
 
 local function convert_snake_case_in_pascal_case(str)
+  str = str or ''
   local words = {}
   for i, v in pairs(split(str, '_')) do -- grab all the words separated with a _ underscore
     table.insert(words, v:sub(1, 1):upper() .. v:sub(2)) -- we take the first character, uppercase, and add the rest. Then I insert to the table
@@ -220,7 +222,7 @@ luasnip.snippets = {
     snip({trig = 't', name = 'test'}, {
       text {'', 'test "'},
       insert(1, 'the truth'),
-      text('"'),
+      text('" do'),
       text({'', '  '}),
       insert(2, ' '),
       text({'', '  assert '}),
