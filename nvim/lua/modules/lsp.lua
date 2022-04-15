@@ -61,18 +61,8 @@ local function on_attach(client, bufnr)
       [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]],
       opts,
     },
-    {
-      "n",
-      "[g",
-      [[<Cmd>lua require('lspsaga.diagnostic').diagnostic_jump_next()<CR>]],
-      opts,
-    },
-    {
-      "n",
-      "]g",
-      [[<Cmd>lua require('lspsaga.diagnostic').diagnostic_jump_prev() <CR>]],
-      opts,
-    },
+    {"n", "[g", [[<Cmd>Lspsaga diagnostic_jump_next<cr><CR>]], opts},
+    {"n", "]g", [[<Cmd>Lspsaga diagnostic_jump_prev<cr> <CR>]], opts},
   }
 
   for _, map in pairs(mappings) do
