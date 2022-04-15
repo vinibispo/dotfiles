@@ -1,7 +1,7 @@
 # /home/vinibispodev/.config/tmuxinator/segmentoFarma.yml
 
 name: sopha
-root: ~/Documents/Code/SophaTech/sopha
+root: ~/Documents/Code/SophaTech/SophaWay/backend
 
 # Optional tmux socket
 # socket_name: foo
@@ -24,7 +24,7 @@ on_project_first_start: docker-compose up -d
 # on_project_exit: command
 
 # Run on project stop
-on_project_stop: docker-compose down
+# on_project_stop: docker-compose down
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
@@ -54,7 +54,7 @@ windows:
 
   - frontend:
       layout: "90ab,167x51,0,0{83x51,0,0[83x25,0,0,0,83x25,0,26,2],83x51,84,0,1}"
-      root: ~/Documents/Code/SophaTech/sopha/frontend
+      root: ~/Documents/Code/SophaTech/SophaWay/frontend
       panes:
         - yarn start
         - ls
