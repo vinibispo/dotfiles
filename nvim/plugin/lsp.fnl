@@ -1,13 +1,45 @@
-(local saga_provider (require :lspsaga.provider))
-(local saga_code_action (require :lspsaga.codeaction))
-(local saga_action (require :lspsaga.action))
-(local saga_rename (require :lspsaga.rename))
-(local saga_signature_help (require :lspsaga.signaturehelp))
-(local saga_hover (require :lspsaga.hover))
-(local installer (require :nvim-lsp-installer))
-(local cmp_nvim_lsp (require :cmp_nvim_lsp))
-(local lsp (require :lspconfig))
-(local saga (require :lspsaga))
+(local (ok saga_provider) (pcall require :lspsaga.provider))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok saga_code_action) (pcall require :lspsaga.codeaction))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok saga_action) (pcall require :lspsaga.action))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok saga_rename) (pcall require :lspsaga.rename))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok saga_signature_help) (pcall require :lspsaga.signaturehelp))
+
+(when (not ok)
+  (lua "return true"))
+
+(local (ok saga_hover) (pcall require :lspsaga.hover))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok installer) (pcall require :nvim-lsp-installer))
+
+(when (not ok)
+  (lua "return true"))
+
+(local (ok cmp_nvim_lsp) (pcall require :cmp_nvim_lsp))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok lsp) (pcall require :lspconfig))
+(when (not ok)
+  (lua "return true"))
+
+(local (ok saga) (pcall require :lspsaga))
+(when (not ok)
+  (lua "return true"))
+
 (saga.init_lsp_saga {:error_sign "✗"
                      :warn_sign "⚠"
                      :code_action_prompt {:enable false}})
