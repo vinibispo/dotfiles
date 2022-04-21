@@ -68,6 +68,7 @@
                 (vim.schedule (fn []
                                 (local bufferline (require :bufferline))
                                 (bufferline.setup)))))
+        (use :ellison_leao/carbon-now.nvim)
         (use :folke/lsp-colors.nvim) ; Colors in LSP
         (use! :folke/trouble.nvim :config
               (fn []
