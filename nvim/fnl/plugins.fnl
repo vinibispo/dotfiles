@@ -43,8 +43,7 @@
         ; )
         (use :Pocco81/DAPInstall.nvim) ; Language syntax highlighting
         (use! :nvim-treesitter/nvim-treesitter :run ":TSUpdate")
-        (use! :neovim/nvim-lspconfig :config #(require :modules.lsp) :requires
-              :williamboman/nvim-lsp-installer)
+        (use! :neovim/nvim-lspconfig :requires :williamboman/nvim-lsp-installer)
         (use! :hrsh7th/nvim-cmp :requires
               [:f3fora/cmp-spell
                :hrsh7th/cmp-buffer
@@ -62,7 +61,7 @@
                 (vim.schedule (fn []
                                 (local bufferline (require :bufferline))
                                 (bufferline.setup)))))
-        (use :ellison_leao/carbon-now.nvim) (use :folke/lsp-colors.nvim)
+        (use :ellisonleao/carbon-now.nvim) (use :folke/lsp-colors.nvim)
         ; Colors in LSP
         (use! :folke/trouble.nvim :config
               (fn []
