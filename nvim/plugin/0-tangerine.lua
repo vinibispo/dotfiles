@@ -29,7 +29,8 @@ require'tangerine'.setup{
   -- compile files in &rtp
   rtpdirs = {
     "ftplugin",
-    "after"
+    "after",
+    "plugin"
   },
 
   compiler = {
