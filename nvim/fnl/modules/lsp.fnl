@@ -15,7 +15,7 @@
 (fn on_attach [client buffnr]
   (local opts {:silent true :noremap true :buffer buffnr})
   (local mappings
-         [[:n :gd "<Cmd>lua vim.lsp.buf.definition()<CR>" opts]
+         [[:n :gd #(vim.lsp.buf.definition) opts]
           [:n :gD #(saga_provider.preview_definition) opts]
           [:n :gr #(saga_rename.ranger_code_action) opts]
           [:n :gh #(saga_provider.lsp_finder) opts]
@@ -28,11 +28,9 @@
     (let [[first second third fourth] val]
       (vim.keymap.set first second third fourth)))
   (if client.resolved_capabilities.document_formatting
-      (vim.keymap.set :n :<leader>F "<cmd>lua vim.lsp.buf.formatting()<CR>"
-                      opts)
+      (vim.keymap.set :n :<leader>F #(vim.lsp.buf.formatting) opts)
       client.resolved_capabilities.document_range_formatting
-      (vim.keymap.set :n :<leader>F
-                      "<cmd>lua vim.lsp.buf.ranger_formattng()<CR>" opts))
+      (vim.keymap.set :n :<leader>F #(vim.lsp.buf.range_formatting) opts))
   (when client.resolved_capabilities.document_highlight
     (local lsp_document_highlight_augroup
            (vim.api.nvim_create_augroup :lsp_document_highlight {:clear false}))
