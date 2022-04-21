@@ -18,8 +18,7 @@
                   (kommentary_config.use_extended_mappings))))
         ; Git interface
         (use! :TimUntersberger/neogit :requires
-              [:nvim-lua/plenary.nvim :sindrets/diffview.nvim] :config
-              #(require :plugins.neogit)) ; Ruby
+              [:nvim-lua/plenary.nvim :sindrets/diffview.nvim]) ; Ruby
         (use! :vinibispo/ruby.nvim :requires :nvim-lua/plenary.nvim)
         (use! :norcalli/nvim-colorizer.lua ; Color
               :config
@@ -29,15 +28,12 @@
         (use! :nvim-telescope/telescope.nvim :requires
               [:nvim-lua/plenary.nvim
                :nvim-lua/popup.nvim
-               :nvim-telescope/telescope-dap.nvim] :config
-              #(require :plugins.telescope))
-        (use! :kyazdani42/nvim-tree.lua :config #(require :plugins.nvim-tree)
-              :requires :kyazdany42/nvim-web-devicons) ; Icons
-        (use! :kyazdani42/nvim-web-devicons :config
-              #(require :plugins.nvim-web-devicons)) ; Statusline
+               :nvim-telescope/telescope-dap.nvim])
+        (use! :kyazdani42/nvim-tree.lua :requires :kyazdany42/nvim-web-devicons)
+        ; Icons
+        (use! :kyazdani42/nvim-web-devicons) ; Statusline
         (use! :nvim-lualine/lualine.nvim :requires
-              {1 :kyazdani42/nvim-web-devicons :opt true} :config
-              #(require :plugins.lualine)) ; Debugger
+              {1 :kyazdani42/nvim-web-devicons :opt true}) ; Debugger
         ; (use! :mfussenegger/nvim-dap
         ; :config (#(
         ; (local dap (require :dap))
@@ -46,8 +42,7 @@
         ; ))
         ; )
         (use :Pocco81/DAPInstall.nvim) ; Language syntax highlighting
-        (use! :nvim-treesitter/nvim-treesitter :run ":TSUpdate" :config
-              #(require :plugins.nvim-treesiter))
+        (use! :nvim-treesitter/nvim-treesitter :run ":TSUpdate")
         (use! :neovim/nvim-lspconfig :config #(require :modules.lsp) :requires
               :williamboman/nvim-lsp-installer)
         (use! :hrsh7th/nvim-cmp :requires
@@ -57,10 +52,9 @@
                :hrsh7th/cmp-nvim-lua
                :hrsh7th/cmp-path
                :saadparwaiz1/cmp_luasnip
-               {1 :L3MoN4D3/LuaSnip :config #(require :plugins.luasnip)}
+               [:L3MoN4D3/LuaSnip]
                :ray-x/cmp-treesitter
-               :onsails/lspkind-nvim] :config
-              #(require :plugins.cmp)) (use :tami5/lspsaga.nvim)
+               :onsails/lspkind-nvim]) (use :tami5/lspsaga.nvim)
         (use! :williamboman/nvim-lsp-installer :requires :neovim/nvim-lspconfig)
         (use :rafamadriz/friendly-snippets)
         (use! :akinsho/nvim-bufferline.lua :config
@@ -68,8 +62,8 @@
                 (vim.schedule (fn []
                                 (local bufferline (require :bufferline))
                                 (bufferline.setup)))))
-        (use :ellison_leao/carbon-now.nvim)
-        (use :folke/lsp-colors.nvim) ; Colors in LSP
+        (use :ellison_leao/carbon-now.nvim) (use :folke/lsp-colors.nvim)
+        ; Colors in LSP
         (use! :folke/trouble.nvim :config
               (fn []
                 (local trouble (require :trouble))
