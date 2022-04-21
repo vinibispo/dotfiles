@@ -27,15 +27,15 @@
   (each [key val (pairs mappings)]
     (let [[first second third fourth] val]
       (vim.keymap.set first second third fourth)))
-  (if (client.resolved_capabilities.document_formatting)
-      ((vim.api.keymap.set :n :<leader>F
-                           "<cmd>lua vim.lsp.buf.formatting()<CR>" opts))
-      (client.resolved_capabilities.document_range_formatting)
-      ((vim.api.keymap.set :n :<leader>F
-                           "<cmd>lua vim.lsp.buf.ranger_formattng()<CR>" opts)))
-  (when (client.resolved_capabilities.document_highlight)
+  (if client.resolved_capabilities.document_formatting
+      (vim.keymap.set :n :<leader>F "<cmd>lua vim.lsp.buf.formatting()<CR>"
+                      opts)
+      client.resolved_capabilities.document_range_formatting
+      (vim.keymap.set :n :<leader>F
+                      "<cmd>lua vim.lsp.buf.ranger_formattng()<CR>" opts))
+  (when client.resolved_capabilities.document_highlight
     (local lsp_document_highlight_augroup
-           (vim.api.nvim_create_augroup :lsp_document_highlight))
+           (vim.api.nvim_create_augroup :lsp_document_highlight {:clear false}))
     (vim.api.nvim_create_autocmd :CursorHold
                                  {:pattern :<buffer>
                                   :group lsp_document_highlight_augroup
@@ -43,7 +43,7 @@
     (vim.api.nvim_create_autocmd :CursorMoved
                                  {:pattern :<buffer>
                                   :group lsp_document_highlight_augroup
-                                  :callback #((vim.lsp.buf.clear_references))})))
+                                  :callback #(vim.lsp.buf.clear_references)})))
 
 (fn make_config []
   (local capabilities (vim.lsp.protocol.make_client_capabilities))
