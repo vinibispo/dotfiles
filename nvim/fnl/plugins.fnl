@@ -20,8 +20,7 @@
         (use! :TimUntersberger/neogit :requires
               [:nvim-lua/plenary.nvim :sindrets/diffview.nvim] :config
               #(require :plugins.neogit)) ; Ruby
-        (use! :vinibispo/ruby.nvim :ft :ruby :requires :nvim-lua/plenary.nvim
-              :config #(setup :ruby_nvim {:test_cmd :ruby :test_args {}}))
+        (use! :vinibispo/ruby.nvim :requires :nvim-lua/plenary.nvim)
         (use! :norcalli/nvim-colorizer.lua ; Color
               :config
               (setup :colorizer
