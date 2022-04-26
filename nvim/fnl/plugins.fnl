@@ -68,5 +68,9 @@
               (fn []
                 (local trouble (require :trouble))
                 (trouble.setup))) ; Trouble
-        (use :akinsho/toggleterm.nvim) (use :propet/toggle-fullscreen.nvim))
         (use! :jose-elias-alvarez/null-ls.nvim :requires :nvim-lua/plenary.nvim)
+        (use! :j-hui/fidget.nvim :config
+              (fn []
+                (local fidget (require :fidget))
+                (fidget.setup {}))) (use :akinsho/toggleterm.nvim)
+        (use :propet/toggle-fullscreen.nvim)
