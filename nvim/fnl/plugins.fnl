@@ -74,3 +74,7 @@
                 (local fidget (require :fidget))
                 (fidget.setup {}))) (use :akinsho/toggleterm.nvim)
         (use :propet/toggle-fullscreen.nvim)
+        (use! :folke/todo-comments.nvim :config
+              (fn []
+                (local todo-comments (require :todo-comments))
+                (todo-comments.setup))) (use :andweeb/presence.nvim))
