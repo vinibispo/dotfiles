@@ -43,6 +43,7 @@
         ; )
         (use :Pocco81/DAPInstall.nvim) ; Language syntax highlighting
         (use! :nvim-treesitter/nvim-treesitter :run ":TSUpdate")
+        (use :nvim-treesitter/playground)
         (use! :neovim/nvim-lspconfig :requires :williamboman/nvim-lsp-installer)
         (use! :hrsh7th/nvim-cmp :requires
               [:f3fora/cmp-spell
