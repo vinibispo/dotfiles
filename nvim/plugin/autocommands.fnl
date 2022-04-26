@@ -8,10 +8,6 @@
 
 (augroup! :packer [[BufWritePost] plugins.lua :PackerCompile])
 
-(fn format-fennel []
-  (when (= 1 (vim.fn.executable :fnlfmt))
-    (exec [[":silent !fnlfmt --fix %"]])))
-
 (fn source-file []
   (let [file-name (vim.fn.expand "%:r")
         config-folder (vim.fn.stdpath :config)
@@ -22,5 +18,4 @@
     (exec [[":source " source-file]])
     (print (.. "sourced: " source-file))))
 
-(augroup! :_config [[BufWritePost] *.fnl `source-file]
-          [[BufWritePost] *.fnl `format-fennel])
+(augroup! :source_file [[BufWritePost] *.fnl `source-file])
