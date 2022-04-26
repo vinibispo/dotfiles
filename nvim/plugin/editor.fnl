@@ -9,6 +9,8 @@
                   :encoding :UTF-8
                   :modeline true
                   :autoindent true
+                  :foldmethod :expr
+                  :foldexpr "nvim_tressiter#foldexpr()"
                   :tabstop 2
                   :shiftwidth 2
                   :expandtab true
@@ -22,7 +24,7 @@
                   :wildmode "list:longest"
                   :wildignore "*.o, *.obj, *~, *vim/backups, *sass-cache, *DS_Store, vendor/rails/**, vendor/cache/**, *.gem, log/**, tmp/**, *.png, *.jpg, *.gif, *.swp, *.pyc"
                   :clipboard :unnamedplus
-                  :completeopt "menuone,noinsert,noselect"
+                  :completeopt [:menuone :noinsert :noselect :menu]
                   :signcolumn :yes
                   :wrap true
                   :linebreak true
@@ -33,7 +35,6 @@
                   :modifiable true
                   :foldlevelstart 99
                   :exrc true
-                  :hidden true
                   :number true
                   :undodir undo_dir
                   :undofile true
@@ -62,7 +63,7 @@
                    [:n :<leader>ev "<cmd>e ~/dotfiles/nvim/init.fnl<CR>" opts]
                    [:n
                     :<leader>sv
-                    "<cmd>luafile ~/dotfiles/nvim/init.lua<CR>"
+                    "<cmd>luafile ~/dotfiles/nvim/lua/tangerine_vimrc.lua<CR>"
                     opts]
                    [:n :S :<Cmd>w<CR> opts]
                    [:n :Q :<Cmd>q<CR> opts]
