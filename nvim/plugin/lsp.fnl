@@ -2,15 +2,7 @@
 (when (not ok)
   (lua "return true"))
 
-(local (ok saga_code_action) (pcall require :lspsaga.codeaction))
-(when (not ok)
-  (lua "return true"))
-
 (local (ok saga_action) (pcall require :lspsaga.action))
-(when (not ok)
-  (lua "return true"))
-
-(local (ok saga_rename) (pcall require :lspsaga.rename))
 (when (not ok)
   (lua "return true"))
 
@@ -40,6 +32,10 @@
 (when (not ok)
   (lua "return true"))
 
+(local (ok null_ls) (pcall require :null-ls))
+(when (not ok)
+  (lua "return true"))
+
 (saga.init_lsp_saga {:error_sign "✗"
                      :warn_sign "⚠"
                      :code_action_prompt {:enable false}})
@@ -49,18 +45,27 @@
   (local mappings
          [[:n :gd #(vim.lsp.buf.definition) opts]
           [:n :gD #(saga_provider.preview_definition) opts]
-          [:n :gr #(saga_rename.ranger_code_action) opts]
+          [:n :gr #(vim.lsp.buf.rename) opts]
           [:n :gh #(saga_provider.lsp_finder) opts]
-          [[:n :v] :<leader>ca #(saga_code_action.range_code_action) opts]
+          [:n :<leader>ca #(vim.lsp.buf.code_action) opts]
+          [:n :<leader>ca #(vim.lsp.buf.range_code_action) opts]
           [:n :<C-a> #(saga_action.smart_scroll_with_saga 1) opts]
           [:n :<C-b> #(saga_action.smart_scroll_with_saga -1) opts]
           [:n :gs #(saga_signature_help.signature_help) opts]
-          [:n :<leader>Z #(saga_hover.render_hover_doc) opts]])
+          [:n :<leader>Z #(saga_hover.render_hover_doc) opts]
+          [:n "[g" #(vim.diagnostic.goto_next) opts]
+          [:n "]g" #(vim.diagnostic.goto_prev) opts]])
   (each [key val (pairs mappings)]
     (let [[first second third fourth] val]
       (vim.keymap.set first second third fourth)))
   (if client.resolved_capabilities.document_formatting
-      (vim.keymap.set :n :<leader>F #(vim.lsp.buf.formatting) opts)
+      (let [lsp_formatting (vim.api.nvim_create_augroup :lsp_formatting
+                                                        {:clear true})]
+        (vim.keymap.set :n :<leader>F #(vim.lsp.buf.formatting) opts)
+        (vim.api.nvim_create_autocmd :BufWritePre
+                                     {:pattern :<buffer>
+                                      :group lsp_formatting
+                                      :callback #(vim.lsp.buf.formatting_sync)}))
       client.resolved_capabilities.document_range_formatting
       (vim.keymap.set :n :<leader>F #(vim.lsp.buf.range_formatting) opts))
   (when client.resolved_capabilities.document_highlight
@@ -75,7 +80,7 @@
                                   :group lsp_document_highlight_augroup
                                   :callback #(vim.lsp.buf.clear_references)})))
 
-(fn make_config []
+(fn make-config []
   (local capabilities (vim.lsp.protocol.make_client_capabilities))
   (tset capabilities.textDocument.completion.completionItem :snippetSupport
         true)
@@ -88,14 +93,16 @@
    :handlers {:textDocument/publishDiagnostics (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                                                              {:virtual_text false})}})
 
-(fn get_installed_servers []
+(local default-config (make-config))
+
+(fn get-installed-servers []
   (local servers [])
   (each [_ server (pairs (installer.get_installed_servers))]
     (table.insert servers server.name))
   servers)
 
-(fn install_servers []
-  (local installed_servers (get_installed_servers))
+(fn install-servers []
+  (local installed_servers (get-installed-servers))
   (local required_servers [:bashls
                            :cssls
                            :dockerls
@@ -113,7 +120,11 @@
     (when (not (vim.tbl_contains installed_servers server))
       ((installer.install server)))))
 
-(install_servers)
+(null_ls.setup {: on_attach
+                :save_after_format false
+                :sources [null_ls.builtins.formatting.fnlfmt]})
+
+(install-servers)
 (installer.on_server_ready (fn [server]
-                             (server:setup (make_config))
+                             (server:setup (make-config))
                              (vim.cmd "do User LspAttachBuffers")))
