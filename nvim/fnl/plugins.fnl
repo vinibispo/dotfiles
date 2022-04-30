@@ -34,14 +34,8 @@
         (use! :kyazdani42/nvim-web-devicons) ; Statusline
         (use! :nvim-lualine/lualine.nvim :requires
               {1 :kyazdani42/nvim-web-devicons :opt true}) ; Debugger
-        ; (use! :mfussenegger/nvim-dap
-        ; :config (#(
-        ; (local dap (require :dap))
-        ; (tset dap.adapters :node2 {:type :executable :command :node :args [(.. (vim.fn.stdpath :data) "/dapinstall/jsnode_dbg/" "/vscode-node-debug2/out/src/nodeDebug.js")]})
-        ; (tset dap.configurations :javascript {:type :node2 :request :launch :program "${workspaceFolder}/${file}" :cwd (vim.fn.getcwd) :sourceMaps true :protocol :inspector :console :integratedTerminal})
-        ; ))
-        ; )
-        (use :Pocco81/DAPInstall.nvim) ; Language syntax highlighting
+        (use :mfussenegger/nvim-dap) (use :Pocco81/dap-buddy.nvim)
+        ; Language syntax highlighting
         (use! :nvim-treesitter/nvim-treesitter :run ":TSUpdate")
         (use :nvim-treesitter/playground)
         (use! :neovim/nvim-lspconfig :requires :williamboman/nvim-lsp-installer)
