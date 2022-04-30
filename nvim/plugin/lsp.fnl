@@ -16,15 +16,34 @@
   (lua "return true"))
 
 (local (ok installer) (pcall require :nvim-lsp-installer))
-
 (when (not ok)
   (lua "return true"))
+
+(local (ok lsp_servers) (pcall require :nvim-lsp-installer.servers))
+(when (not ok)
+  (lua "return true"))
+
+(local required_servers [:bashls
+                         :cssls
+                         :dockerls
+                         :graphql
+                         :html
+                         :jsonls
+                         :sumneko_lua
+                         :eslint
+                         :pylsp
+                         :solargraph
+                         :tsserver
+                         :yamlls
+                         :jdtls])
+
+(installer.setup {:ensure_installed required_servers})
 
 (local (ok cmp_nvim_lsp) (pcall require :cmp_nvim_lsp))
 (when (not ok)
   (lua "return true"))
 
-(local (ok lsp) (pcall require :lspconfig))
+(local (ok lspconfig) (pcall require :lspconfig))
 (when (not ok)
   (lua "return true"))
 
@@ -80,51 +99,26 @@
                                   :group lsp_document_highlight_augroup
                                   :callback #(vim.lsp.buf.clear_references)})))
 
-(fn make-config []
+(fn make-config [client-name]
   (local capabilities (vim.lsp.protocol.make_client_capabilities))
   (tset capabilities.textDocument.completion.completionItem :snippetSupport
         true)
   (tset capabilities.textDocument.completion.completionItem :resolveSupport
         {:properties [:documentation :detail :additionalTextEdits]})
   (local new_capabilities (cmp_nvim_lsp.update_capabilities capabilities))
-  {: on_attach
-   :capabilities new_capabilities
-   :settings {:Lua {:diagnostics {:globals [:vim]}}}
-   :handlers {:textDocument/publishDiagnostics (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-                                                             {:virtual_text false})}})
-
-(local default-config (make-config))
-
-(fn get-installed-servers []
-  (local servers [])
-  (each [_ server (pairs (installer.get_installed_servers))]
-    (table.insert servers server.name))
-  servers)
-
-(fn install-servers []
-  (local installed_servers (get-installed-servers))
-  (local required_servers [:bashls
-                           :cssls
-                           :dockerls
-                           :graphql
-                           :html
-                           :jsonls
-                           :sumneko_lua
-                           :eslint
-                           :pylsp
-                           :solargraph
-                           :tsserver
-                           :yamlls
-                           :jdtls])
-  (each [_ server (pairs required_servers)]
-    (when (not (vim.tbl_contains installed_servers server))
-      ((installer.install server)))))
+  (local opts
+         {: on_attach
+          :capabilities new_capabilities
+          :handlers {:textDocument/publishDiagnostics (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
+                                                                    {:virtual_text false})}})
+  (when (= client-name :sumneko_lua)
+    (tset opts :settings {:Lua {:diagnostics {:globals [:vim]}}}))
+  opts)
 
 (null_ls.setup {: on_attach
                 :save_after_format false
                 :sources [null_ls.builtins.formatting.fnlfmt]})
 
-(install-servers)
-(installer.on_server_ready (fn [server]
-                             (server:setup (make-config))
-                             (vim.cmd "do User LspAttachBuffers")))
+(each [_ lsp (ipairs (lsp_servers.get_installed_server_names))]
+  (let [lsp-server (. lspconfig lsp)]
+    (lsp-server.setup (make-config lsp))))
