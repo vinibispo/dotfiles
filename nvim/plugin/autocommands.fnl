@@ -16,6 +16,6 @@
                         (.. config-folder :/lua/tangerine_vimrc.lua)
                         lua-file)]
     (exec [[":source " source-file]])
-    (print (.. "sourced: " source-file))))
+    (vim.notify (.. "sourced: " source-file) :info)))
 
 (augroup! :source_file [[BufWritePost] *.fnl `source-file])
