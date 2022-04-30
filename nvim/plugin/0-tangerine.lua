@@ -2,12 +2,12 @@
 vim.opt.termguicolors = true
 local function bootstrap (name, url, path)
 	if vim.fn.isdirectory(path) == 0 then
-		print(name .. ": installing in data dir...")
+		vim.notify(name .. ": installing in data dir...", "info")
 
 		vim.fn.system {"git", "clone", "--depth", "1", url, path}
 
 		vim.cmd [[redraw]]
-		print(name .. ": finished installing")
+		vim.notify(name .. ": finished installing", "info")
 	end
 end
 
