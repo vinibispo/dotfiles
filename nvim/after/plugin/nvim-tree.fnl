@@ -7,21 +7,20 @@
           :filters {:dotfiles true}
           :hijack_netrw true
           :open_on_setup false
-          :auto_close false
           :open_on_tab false
           :git {:ignore true}
-          :update_to_buf_dir {:enable true :auto_open true}
+          :hijack_directories {:enable true :auto_open true}
           :hijack_cursor false
           :update_cwd false
           :diagnostics {:enable true}
           :update_focused_file {:enable true
-                                :update_cwd :false
+                                :update_cwd false
                                 :ignore_list [:.git :node_modules :.cache]}
           :system_open {:cmd nil :args {}}
+          :actions {:open_file {:resize_window false}}
           :view {:width 30
                  :height 30
                  :side :left
-                 :auto_resize false
                  :mappings {:custom_only false :list {}}}}))
 
 (fn set_mappings []
