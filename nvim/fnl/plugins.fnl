@@ -78,3 +78,4 @@
               (fn []
                 (local todo-comments (require :todo-comments))
                 (todo-comments.setup))) (use :andweeb/presence.nvim))
+        (use :glepnir/dashboard-nvim) (use :rcarriga/nvim-notify))
