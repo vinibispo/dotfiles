@@ -71,5 +71,5 @@
         (use! :folke/todo-comments.nvim :config
               (fn []
                 (local todo-comments (require :todo-comments))
-                (todo-comments.setup))) (use :andweeb/presence.nvim))
+                (todo-comments.setup))) (use :andweeb/presence.nvim)
         (use :glepnir/dashboard-nvim) (use :rcarriga/nvim-notify))
