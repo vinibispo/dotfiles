@@ -57,11 +57,11 @@
                :onsails/lspkind-nvim]) (use :tami5/lspsaga.nvim)
         (use! :williamboman/nvim-lsp-installer :requires :neovim/nvim-lspconfig)
         (use :rafamadriz/friendly-snippets)
-        (use! :akinsho/nvim-bufferline.lua :config
+        (use! :akinsho/bufferline.nvim :config
               (fn []
                 (vim.schedule (fn []
                                 (local bufferline (require :bufferline))
-                                (bufferline.setup)))))
+                                (bufferline.setup {})))))
         (use :ellisonleao/carbon-now.nvim) (use :folke/lsp-colors.nvim)
         ; Colors in LSP
         (use! :folke/trouble.nvim :config
