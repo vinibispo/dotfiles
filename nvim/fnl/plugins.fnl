@@ -12,11 +12,10 @@
         (use :mattn/emmet-vim) ; EditorConfig
         (use :gpanders/editorconfig.nvim) ; colorscheme
         (use :shaunsingh/nord.nvim) ; Commentary
-        (use! :b3nj5m1n/kommentary :config
+        (use! :numToStr/Comment.nvim :config
               (fn []
-                (let [kommentary_config (require :kommentary.config)]
-                  (kommentary_config.use_extended_mappings))))
-        ; Git interface
+                (let [Comment (require :Comment)]
+                  (Comment.setup)))) ; Git interface
         (use! :TimUntersberger/neogit :requires
               [:nvim-lua/plenary.nvim :sindrets/diffview.nvim]) ; Ruby
         (use! :vinibispo/ruby.nvim :requires :nvim-lua/plenary.nvim)
