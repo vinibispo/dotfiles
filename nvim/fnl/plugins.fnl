@@ -19,6 +19,8 @@
         (use! :TimUntersberger/neogit :requires
               [:nvim-lua/plenary.nvim :sindrets/diffview.nvim]) ; Ruby
         (use! :vinibispo/ruby.nvim :requires :nvim-lua/plenary.nvim)
+        (use! :cuducos/yaml.nvim :requires
+              [:nvim-treesitter/nvim-treesitter :nvim-telescope/telescope.nvim])
         (use! :norcalli/nvim-colorizer.lua ; Color
               :config
               (setup :colorizer
