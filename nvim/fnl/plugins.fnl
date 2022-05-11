@@ -18,7 +18,8 @@
                   (Comment.setup)))) ; Git interface
         (use! :TimUntersberger/neogit :requires
               [:nvim-lua/plenary.nvim :sindrets/diffview.nvim]) ; Ruby
-        (use! :vinibispo/ruby.nvim :requires :nvim-lua/plenary.nvim)
+        (use! :vinibispo/ruby.nvim :requires
+              [:nvim-lua/plenary.nvim :nvim-treesitter/nvim-treesitter])
         (use! :cuducos/yaml.nvim :requires
               [:nvim-treesitter/nvim-treesitter :nvim-telescope/telescope.nvim])
         (use! :norcalli/nvim-colorizer.lua ; Color
