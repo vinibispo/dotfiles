@@ -30,7 +30,6 @@
                          :html
                          :jsonls
                          :sumneko_lua
-                         :eslint
                          :pylsp
                          :solargraph
                          :tsserver
@@ -77,7 +76,8 @@
   (each [key val (pairs mappings)]
     (let [[first second third fourth] val]
       (vim.keymap.set first second third fourth)))
-  (if client.resolved_capabilities.document_formatting
+  (if (and client.resolved_capabilities.document_formatting
+           (not= client.name :tsserver))
       (let [lsp_formatting (vim.api.nvim_create_augroup :lsp_formatting
                                                         {:clear true})]
         (vim.keymap.set :n :<leader>F #(vim.lsp.buf.formatting) opts)
