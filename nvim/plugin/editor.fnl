@@ -10,7 +10,7 @@
                   :modeline true
                   :autoindent true
                   :foldmethod :expr
-                  :foldexpr "nvim_tressiter#foldexpr()"
+                  :foldexpr "nvim_treesitter#foldexpr()"
                   :tabstop 2
                   :shiftwidth 2
                   :expandtab true
