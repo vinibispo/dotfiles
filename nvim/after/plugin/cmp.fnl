@@ -34,10 +34,10 @@
                                                   (luasnip.jump -1)
                                                   (fallback)))
                                             [:i :s])
-                        :<C-Space> (cmp.mapping.complete)
-                        :<C-e> (cmp.mapping.close)
-                        :<CR> (cmp.mapping.confirm { :behavior cmp.ConfirmBehavior.Insert :select true })
-                      }
+                      :<C-Space> (cmp.mapping.complete)
+                      :<C-e> (cmp.mapping.close)
+                      :<CR> (cmp.mapping.confirm {:behavior cmp.ConfirmBehavior.Insert
+                                                  :select true})}
             ; :mapping (cmp.mapping.preset.insert {:<Tab> (cmp.mapping (fn [fallback]
             ;                                                            (if (cmp.visible)
             ;                                                                (cmp.mapping.select_next_item)
@@ -58,4 +58,5 @@
                       {:name :path}
                       {:name :spell}
                       {:name :treesitter}
+                      {:name :greek}
                       {:name :luasnip}]})
