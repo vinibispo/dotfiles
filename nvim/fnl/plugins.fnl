@@ -17,7 +17,8 @@
                 (let [Comment (require :Comment)]
                   (Comment.setup)))) ; Git interface
         (use! :TimUntersberger/neogit :requires
-              [:nvim-lua/plenary.nvim :sindrets/diffview.nvim]) ; Ruby
+              [:nvim-lua/plenary.nvim :sindrets/diffview.nvim])
+        (use! :lewis6991/gitsigns.nvim) ; Ruby
         (use! :vinibispo/ruby.nvim :requires
               [:nvim-lua/plenary.nvim :nvim-treesitter/nvim-treesitter])
         (use! :cuducos/yaml.nvim :requires
