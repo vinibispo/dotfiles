@@ -118,7 +118,10 @@
 (null_ls.setup {: on_attach
                 :save_after_format false
                 :sources [null_ls.builtins.formatting.fnlfmt
-                          null_ls.builtins.diagnostics.rubocop]})
+                          null_ls.builtins.diagnostics.rubocop
+                          null_ls.builtins.formatting.rubocop
+                          null_ls.builtins.formatting.erb_lint
+                          null_ls.builtins.diagnostics.erb_lint]})
 
 (each [_ lsp (ipairs (lsp_servers.get_installed_server_names))]
   (let [lsp-server (. lspconfig lsp)]
