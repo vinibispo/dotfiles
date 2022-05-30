@@ -61,6 +61,7 @@
                    [:n :<leader>z :<cmd>tabprevious<CR> opts]
                    [:n :<leader>x :<cmd>tabnew<CR> opts]
                    [:n :<leader>ev "<cmd>e ~/dotfiles/nvim/init.fnl<CR>" opts]
+                   [:t :<ESC> "<c-\\><c-n>" opts]
                    [:n
                     :<leader>sv
                     "<cmd>luafile ~/dotfiles/nvim/lua/tangerine_vimrc.lua<CR>"
