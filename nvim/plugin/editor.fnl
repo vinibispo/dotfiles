@@ -81,7 +81,8 @@
     (vim.keymap.set first second third fourth)))
 
 (fn set_theme []
-  (color! :nord))
+  (g! catppuccin_flavour :latte)
+  (color! :catppuccin))
 
 (set_options)
 (set_globals)
