@@ -11,7 +11,8 @@
         ; emmet
         (use :mattn/emmet-vim) ; EditorConfig
         (use :gpanders/editorconfig.nvim) ; colorscheme
-        (use :shaunsingh/nord.nvim) ; Commentary
+        (use! :catppuccin/nvim :as :catppuccin) (use :shaunsingh/nord.nvim)
+        ; Commentary
         (use! :numToStr/Comment.nvim :config
               (fn []
                 (let [Comment (require :Comment)]
