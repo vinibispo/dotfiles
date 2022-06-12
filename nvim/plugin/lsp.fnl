@@ -1,27 +1,22 @@
-(local (ok saga_provider) (pcall require :lspsaga.provider))
-(when (not ok)
-  (lua "return true"))
+(local saga_provider (require :lspsaga.provider))
 
-(local (ok saga_action) (pcall require :lspsaga.action))
-(when (not ok)
-  (lua "return true"))
+(local saga_action (require :lspsaga.action))
 
-(local (ok saga_signature_help) (pcall require :lspsaga.signaturehelp))
+(local saga_signature_help (require :lspsaga.signaturehelp))
 
-(when (not ok)
-  (lua "return true"))
+(local saga_hover (require :lspsaga.hover))
 
-(local (ok saga_hover) (pcall require :lspsaga.hover))
-(when (not ok)
-  (lua "return true"))
+(local installer (require :nvim-lsp-installer))
 
-(local (ok installer) (pcall require :nvim-lsp-installer))
-(when (not ok)
-  (lua "return true"))
+(local lsp_servers (require :nvim-lsp-installer.servers))
 
-(local (ok lsp_servers) (pcall require :nvim-lsp-installer.servers))
-(when (not ok)
-  (lua "return true"))
+(local cmp_nvim_lsp (require :cmp_nvim_lsp))
+
+(local lspconfig (require :lspconfig))
+
+(local saga (require :lspsaga))
+
+(local null_ls (require :null-ls))
 
 (local required_servers [:bashls
                          :cssls
