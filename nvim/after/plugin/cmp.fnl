@@ -17,7 +17,9 @@
                                                       :menu {:buffer "[Buffer]"
                                                              :nvim_lsp "[LSP]"
                                                              :luasnip "[LuaSnip]"
-                                                             :nvim_lua "[Lua]"}})}
+                                                             :nvim_lua "[Lua]"
+                                                             :path "[Path]"}
+                                                      :documentation {:border :single}})}
             :mapping {:<Tab> (cmp.mapping (fn [fallback]
                                             (if (cmp.visible)
                                                 (cmp.select_next_item)
