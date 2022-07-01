@@ -9,6 +9,7 @@
                            :bash
                            :typescript
                            :ruby
+                           :tsx
                            :fennel]
         :highlight {:enable true :disable {}}
         :incremental_selection {:enable true
