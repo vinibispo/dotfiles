@@ -1,0 +1,3 @@
+[submodule "tmuxinator"]
+	path = tmuxinator
+	url = git@github.com:vinibispo/tmuxinator.git
