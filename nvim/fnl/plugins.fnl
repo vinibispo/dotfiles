@@ -61,7 +61,7 @@
                                 (local bufferline (require :bufferline))
                                 (bufferline.setup {})))))
         (use :ellisonleao/carbon-now.nvim) (use :folke/lsp-colors.nvim)
-        ; Colors in LSP
+        (use :ellisonleao/glow.nvim) ; Colors in LSP
         (use! :folke/trouble.nvim :config
               (fn []
                 (local trouble (require :trouble))
@@ -76,4 +76,6 @@
               (fn []
                 (local todo-comments (require :todo-comments))
                 (todo-comments.setup))) (use :andweeb/presence.nvim)
-        (use :rcarriga/nvim-notify))
+        (use :rcarriga/nvim-notify)
+        (use! :Massolari/forem.nvim :run :make :requires
+              [:nvim-lua/plenary.nvim :nvim-telescope/telescope.nvim] ))
