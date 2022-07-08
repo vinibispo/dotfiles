@@ -33,21 +33,13 @@
 
 (installer.setup {:ensure_installed required_servers})
 
-(local (ok cmp_nvim_lsp) (pcall require :cmp_nvim_lsp))
-(when (not ok)
-  (lua "return true"))
+(local cmp_nvim_lsp (require :cmp_nvim_lsp))
 
-(local (ok lspconfig) (pcall require :lspconfig))
-(when (not ok)
-  (lua "return true"))
+(local lspconfig (require :lspconfig))
 
-(local (ok saga) (pcall require :lspsaga))
-(when (not ok)
-  (lua "return true"))
+(local saga (require :lspsaga))
 
-(local (ok null_ls) (pcall require :null-ls))
-(when (not ok)
-  (lua "return true"))
+(local null_ls (require :null-ls))
 
 (saga.init_lsp_saga {:error_sign "✗"
                      :warn_sign "⚠"
