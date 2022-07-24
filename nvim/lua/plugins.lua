@@ -2,7 +2,7 @@ vim.opt.termguicolors = true
 require('packer').startup(function (use)
 	use 'wbthomason/packer.nvim' -- Plugin Manager
 	use 'mattn/emmet-vim' -- Emmet
-	use { 'catppuccin/vim', as = 'catppuccin' } -- Colorscheme
+	use { 'catppuccin/nvim', as = 'catppuccin' } -- Colorscheme
 	use { 'numToStr/Comment.nvim', config = function ()
 		require('Comment').setup()
 	end } -- Comment
