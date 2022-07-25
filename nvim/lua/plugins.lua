@@ -30,8 +30,8 @@ require('packer').startup(function (use)
 	use 'mfussenegger/nvim-dap'
 	use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" } -- TreeSitter Support
 	use 'nvim-treesitter/playground' -- TreeSitter Debug
-	use { "neovim/nvim-lspconfig", requires = { 'williamboman/mason.nvim' } } -- Neovim LSP Config
-	use { "hrsh7th/nvim-cmp", requires = { "f3fora/cmp-spell", "hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-path", "saadparwaiz1/cmp_luasnip", "L3MoN4D3/LuaSnip", "ray-x/cmp-treesitter", "onsails/lspkind-nvim" } } -- Auto Completion
+	use { "neovim/nvim-lspconfig", requires = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' } } -- Neovim LSP Config
+	use { "hrsh7th/nvim-cmp", requires = { "f3fora/cmp-spell", "hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-path", "saadparwaiz1/cmp_luasnip", "L3MoN4D3/LuaSnip", "ray-x/cmp-treesitter", "onsails/lspkind-nvim" } } -- Auto Completion
 	use { "akinsho/bufferline.nvim", config = function ()
 		vim.schedule(function () 
 			require('bufferline').setup {}
@@ -49,5 +49,7 @@ require('packer').startup(function (use)
 		require('todo-comments').setup()
 	end} -- TODO, NOTE, FIX list
 	use 'rcarriga/nvim-notify' -- Notifications of Neovim
+
+  use 'glepnir/lspsaga.nvim'
 
 end)
