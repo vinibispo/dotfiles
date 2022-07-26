@@ -1,3 +1,4 @@
+local fun = require("fun")
 local neotree = require("neo-tree")
 local function setup()
   neotree.setup({
@@ -22,9 +23,9 @@ local function set_mappings()
     },
   }
 
-  for _, value in pairs(mappings) do
+  fun.each(function(value)
     vim.keymap.set(table.unpack(value))
-  end
+  end, mappings)
 end
 
 setup()
