@@ -7,18 +7,9 @@ local insert = luasnip.insert_node
 --   return snippet.env.TM_CURRENT_LINE:match('^(.*)' .. snippet.dscr[1], 1)
 -- end
 
-local function split(str, sep)
-  local new_sep, fields = sep or ":", {}
-  local pattern = string.format("([^%s]+)", new_sep)
-  _ = str:gsub(pattern, function(c)
-    fields[#fields + 1] = c
-  end)
-  return fields
-end
-
 local function convert_snake_case_in_pascal_case(str)
   local words = {}
-  for _, v in pairs(split(str, "_")) do -- grab all the words separated with a _ underscore
+  for _, v in pairs(vim.split(str, "_")) do -- grab all the words separated with a _ underscore
     table.insert(words, v:sub(1, 1):upper() .. v:sub(2)) -- we take the first character, uppercase, and add the rest. Then I insert to the table
   end
   return table.concat(words, "")
@@ -30,6 +21,10 @@ local function get_file_without_extension()
 end
 
 local function create_test_class(inherit_from)
+  if get_file_without_extension() == nil then
+    return
+  end
+
   return text({ "", "", "class " }),
       insert(1, convert_snake_case_in_pascal_case(get_file_without_extension())),
       text({ " < " .. inherit_from, "" }),
