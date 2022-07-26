@@ -85,4 +85,6 @@ require("packer").startup(function(use)
   use("rcarriga/nvim-notify") -- Notifications of Neovim
 
   use("glepnir/lspsaga.nvim")
+
+  use_rocks("fun")
 end)
