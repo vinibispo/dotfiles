@@ -1,3 +1,4 @@
+local fun = require("fun")
 local luasnip = require("luasnip")
 local function setup()
   luasnip.filetype_extend("ruby", { "rails" })
@@ -37,9 +38,9 @@ local function set_mappings()
     },
   }
 
-  for _, value in pairs(mappings) do
+  fun.each(function(value)
     vim.keymap.set(unpack(value))
-  end
+  end, mappings)
 end
 
 setup()
