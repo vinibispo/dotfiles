@@ -1,10 +1,6 @@
 local lsp = require("modules.lsp")
 
-local saga = require("lspsaga")
-
 local null_ls = require("null-ls")
-
-saga.init_lsp_saga()
 
 null_ls.setup({
   on_attach = lsp.on_attach,
