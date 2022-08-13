@@ -1,0 +1,2 @@
+require('catppuccin').setup {
+}
