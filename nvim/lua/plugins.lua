@@ -1,3 +1,10 @@
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap =
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+  vim.cmd([[packadd packer.nvim]])
+end
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim") -- Plugin Manager
   use("mattn/emmet-vim") -- Emmet
@@ -47,6 +54,7 @@ require("packer").startup(function(use)
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "L3MoN4D3/LuaSnip",
       "ray-x/cmp-treesitter",
@@ -86,5 +94,5 @@ require("packer").startup(function(use)
 
   use("glepnir/lspsaga.nvim")
 
-  use_rocks("fun")
+  -- use_rocks("fun")
 end)

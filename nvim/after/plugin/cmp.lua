@@ -7,8 +7,8 @@ local function has_words_before()
   local line = table[1]
   local col = table[2]
   local has = (
-      (0 ~= col) and (nil == ((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s"))
-      )
+    (0 ~= col) and (nil == ((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s"))
+  )
   return has
 end
 
@@ -72,4 +72,19 @@ cmp.setup({
     { name = "treesitter" },
     { name = "luasnip" },
   },
+})
+
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline" },
+  }),
 })

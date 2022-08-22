@@ -2,6 +2,10 @@ local builtin = require("telescope.builtin")
 local previewer = require("telescope.previewers")
 local sorters = require("telescope.sorters")
 local function project_files()
+  if string.find(vim.loop.cwd(), "acg") then
+    builtin.find_files({})
+    return
+  end
   local ok = pcall(builtin.git_files, {})
   if not ok then
     builtin.find_files({})

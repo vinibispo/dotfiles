@@ -1,5 +1,11 @@
 local function set_globals()
-  vim.g.mapleader = ","
+  local options = {
+    mapleader = ",",
+    node_host_prog = "~/.asdf/installs/nodejs/18.7.0/.npm/lib/node_modules/neovim/bin/cli.js",
+  }
+  for key, val in pairs(options) do
+    vim.g[key] = val
+  end
 end
 
 local function set_options()
@@ -41,7 +47,7 @@ local function set_options()
     number = true,
     undodir = undo_dir,
     undofile = true,
-    completeopt = "menuone,noinsert,noselect",
+    completeopt = "menu,menuone,noinsert,noselect",
     signcolumn = "yes",
     cmdheight = 2,
     updatetime = 50,

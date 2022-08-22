@@ -13,11 +13,11 @@ local saga_hover = require("lspsaga.hover")
 local saga_diagnostic = require("lspsaga.diagnostic")
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
 local function on_attach(client, buffnr)
+  vim.api.nvim_buf_set_option(buffnr, "omnifunc", "v:lua.lsp.omnifunc")
   local opts = { silent = true, noremap = true, buffer = buffnr }
-  local mappings = {
-    { "n", "gd", vim.lsp.buf.definition, opts },
-  }
+  local mappings = {}
 
   if client.supports_method("textDocument/definition") then
     table.insert(mappings, { "n", "gd", vim.lsp.buf.definition, opts })
