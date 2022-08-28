@@ -24,32 +24,40 @@ local function on_attach(client, buffnr)
   end
 
   if client.supports_method("textDocument/previewDefinition") then
-    table.insert(mappings, { "n", "gD", saga_definition.preview_definition, opts })
+    table.insert(mappings, { "n", "gD", function ()
+      saga_definition:preview_definition()
+    end, opts })
   end
 
   if client.supports_method("textDocument/rename") then
-    table.insert(mappings, { "n", "gr", saga_rename.lsp_rename, opts })
+    table.insert(mappings, { "n", "gr", function ()
+      saga_rename:lsp_rename()
+    end, opts })
   end
 
   if client.supports_method("textDocument/references") or client.supports_method("textDocument/definition") then
-    table.insert(mappings, { "n", "gh", saga_finder.lsp_finder, opts })
+    table.insert(mappings, { "n", "gh", function ()
+      saga_finder:lsp_finder()
+    end, opts })
   end
 
   if client.supports_method("textDocument/codeAction") then
-    table.insert(mappings, { "n", "<leader>ca", saga_code_action.code_action, opts })
+    table.insert(mappings, { "n", "<leader>ca", function ()
+      saga_code_action:code_action()
+    end, opts })
     table.insert(mappings, {
       "v",
       "<leader>ca",
       function()
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-        saga_code_action.range_code_action()
+        saga_code_action:range_code_action()
       end,
       opts,
     })
   end
 
   if client.supports_method("textDocument/signatureHelp") then
-    table.insert(mappings, { "n", "gs", saga_signature_help.signature_help, opts })
+    table.insert(mappings, { "n", "gs", vim.lsp.buf.signature_help, opts })
   end
 
   if client.supports_method("textDocument/hover") then

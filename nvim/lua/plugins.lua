@@ -94,5 +94,12 @@ require("packer").startup(function(use)
 
   use("glepnir/lspsaga.nvim")
 
+  use({
+    "nvim-neotest/neotest",
+    requires = {
+      "olimorris/neotest-rspec",
+    },
+  })
+
   -- use_rocks("fun")
 end)
