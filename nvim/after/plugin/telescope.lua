@@ -1,8 +1,9 @@
 local builtin = require("telescope.builtin")
 local previewer = require("telescope.previewers")
 local sorters = require("telescope.sorters")
+local helpers = require("modules.helpers")
 local function project_files()
-  if string.find(vim.loop.cwd(), "acg") then
+  if helpers.is_acg() then
     builtin.find_files({})
     return
   end

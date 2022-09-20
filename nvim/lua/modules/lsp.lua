@@ -1,10 +1,8 @@
 local saga_definition = require("lspsaga.definition")
 local saga_finder = require("lspsaga.finder")
-local saga_action = require("lspsaga.action")
 
 local saga_code_action = require("lspsaga.codeaction")
 
-local saga_signature_help = require("lspsaga.signaturehelp")
 
 local saga_rename = require("lspsaga.rename")
 
@@ -115,23 +113,7 @@ local function on_attach(client, buffnr)
     )
   end
 
-  table.insert(mappings, {
-    "n",
-    "<C-a>",
-    function()
-      saga_action.smart_scroll_with_saga(1)
-    end,
-    opts,
-  })
 
-  table.insert(mappings, {
-    "n",
-    "<C-b>",
-    function()
-      saga_action.smart_scroll_with_saga(-1)
-    end,
-    opts,
-  })
 
   for _, val in pairs(mappings) do
     vim.keymap.set(unpack(val))

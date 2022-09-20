@@ -42,7 +42,7 @@ require("packer").startup(function(use)
   }) -- Fuzzy Finder
   use("kyazdani42/nvim-web-devicons") -- Icons
   use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } }) -- Status Line
-  use("mfussenegger/nvim-dap")
+  use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }) --Debugger
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }) -- TreeSitter Support
   use("nvim-treesitter/playground") -- TreeSitter Debug
   use({ "neovim/nvim-lspconfig", requires = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" } }) -- Neovim LSP Config
