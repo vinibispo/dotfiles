@@ -28,7 +28,6 @@ local function set_options()
     confirm = true,
     showmode = false,
     smartindent = true,
-    clipboard = "unnamed,unnamedplus",
     wrap = true,
     linebreak = true,
     foldmethod = "expr",
