@@ -3,7 +3,6 @@ local saga_finder = require("lspsaga.finder")
 
 local saga_code_action = require("lspsaga.codeaction")
 
-
 local saga_rename = require("lspsaga.rename")
 
 local saga_hover = require("lspsaga.hover")
@@ -17,88 +16,98 @@ local function on_attach(client, buffnr)
   local opts = { silent = true, noremap = true, buffer = buffnr }
   local mappings = {}
 
-  if client.supports_method("textDocument/definition") then
-    table.insert(mappings, { "n", "gd", vim.lsp.buf.definition, opts })
-  end
+  table.insert(mappings, {
+    "n",
+    "gd",
+    vim.lsp.buf.definition,
+    opts,
+  })
 
-  if client.supports_method("textDocument/previewDefinition") then
-    table.insert(mappings, { "n", "gD", function ()
-      saga_definition:preview_definition()
-    end, opts })
-  end
+  table.insert(mappings, {
+    "n",
+    "gD",
+    function()
+      saga_definition:peek_definition()
+    end,
+    opts,
+  })
 
-  if client.supports_method("textDocument/rename") then
-    table.insert(mappings, { "n", "gr", function ()
+  table.insert(mappings, {
+    "n",
+    "gr",
+    function()
       saga_rename:lsp_rename()
-    end, opts })
-  end
+    end,
+    opts,
+  })
 
-  if client.supports_method("textDocument/references") or client.supports_method("textDocument/definition") then
-    table.insert(mappings, { "n", "gh", function ()
+  table.insert(mappings, {
+    "n",
+    "gh",
+    function()
       saga_finder:lsp_finder()
-    end, opts })
-  end
+    end,
+    opts,
+  })
 
-  if client.supports_method("textDocument/codeAction") then
-    table.insert(mappings, { "n", "<leader>ca", function ()
+  table.insert(mappings, {
+    "n",
+    "<leader>ca",
+    function()
       saga_code_action:code_action()
-    end, opts })
-    table.insert(mappings, {
-      "v",
-      "<leader>ca",
-      function()
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-        saga_code_action:range_code_action()
+    end,
+    opts,
+  })
+  table.insert(mappings, {
+    "v",
+    "<leader>ca",
+    function()
+      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
+      saga_code_action:code_action()
+    end,
+    opts,
+  })
+
+  table.insert(mappings, { "n", "gs", vim.lsp.buf.signature_help, opts })
+
+  table.insert(mappings, {
+    "n",
+    "<leader>Z",
+    function()
+      saga_hover:render_hover_doc()
+    end,
+    opts,
+  })
+
+  table.insert(mappings, { "n", "[g", saga_diagnostic.goto_next, opts })
+  table.insert(mappings, { "n", "]g", saga_diagnostic.goto_prev, opts })
+
+  local function format_lsp(bufnr)
+    vim.lsp.buf.format({
+      filter = function(_)
+        return true
       end,
-      opts,
+      bufnr = bufnr,
     })
   end
 
-  if client.supports_method("textDocument/signatureHelp") then
-    table.insert(mappings, { "n", "gs", vim.lsp.buf.signature_help, opts })
-  end
+  local lsp_formatting = vim.api.nvim_create_augroup("lsp_formatting", { clear = true })
+  table.insert(mappings, {
+    { "n", "v" },
+    "<leader>F",
+    function()
+      format_lsp(buffnr)
+    end,
+    opts,
+  })
 
-  if client.supports_method("textDocument/hover") then
-    table.insert(mappings, { "n", "<leader>Z", saga_hover.render_hover_doc, opts })
-  end
-
-  if client.supports_method("textDocument/publishDiagnostics") then
-    table.insert(mappings, { "n", "[g", saga_diagnostic.goto_next, opts })
-    table.insert(mappings, { "n", "]g", saga_diagnostic.goto_prev, opts })
-  end
-
-  if client.supports_method("textDocument/formatting") then
-    local function format_lsp(bufnr)
-      vim.lsp.buf.format({
-        filter = function(_)
-          return true
-        end,
-        bufnr = bufnr,
-      })
-    end
-
-    local lsp_formatting = vim.api.nvim_create_augroup("lsp_formatting", { clear = true })
-    table.insert(mappings, {
-      "n",
-      "<leader>F",
-      function()
-        format_lsp(buffnr)
-      end,
-      opts,
-    })
-
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = lsp_formatting,
-      buffer = buffnr,
-      callback = function()
-        format_lsp(buffnr)
-      end,
-    })
-  end
-
-  if client.supports_method("textDocument/rangeFormatting") then
-    table.insert(mappings, { "v", "<leader>F", vim.lsp.buf.range_formatting, opts })
-  end
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = lsp_formatting,
+    buffer = buffnr,
+    callback = function()
+      format_lsp(buffnr)
+    end,
+  })
 
   if client.supports_method("textDocument/highlight") then
     local lsp_document_highlight = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
@@ -113,8 +122,6 @@ local function on_attach(client, buffnr)
     )
   end
 
-
-
   for _, val in pairs(mappings) do
     vim.keymap.set(unpack(val))
   end
@@ -126,7 +133,7 @@ local function make_config()
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = { "documentation", "detail", "additionalTextEdits" },
   }
-  local new_capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+  local new_capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
   local opts = { on_attach = on_attach, capabilities = new_capabilities }
   return opts
 end
