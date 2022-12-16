@@ -101,5 +101,9 @@ require("packer").startup(function(use)
     },
   })
 
+  use("lukas-reineke/indent-blankline.nvim") -- Indent mark
+
+  use("Massolari/forem.nvim")
+
   -- use_rocks("fun")
 end)
