@@ -34,7 +34,7 @@ cmp.setup({
     }),
   },
   mapping = {
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<C-n>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         return cmp.select_next_item()
       end
