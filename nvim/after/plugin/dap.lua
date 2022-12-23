@@ -64,7 +64,7 @@ local function set_mappings()
   for _, value in pairs(mappings) do
     local key = value[1]
     local _function = value[2]
-    vim.keymap.set({ "n", "v", "x", "i" }, key, _function, opts)
+    vim.keymap.set({ "n", "v", "x" }, key, _function, opts)
   end
 end
 
