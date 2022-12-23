@@ -1,86 +1,35 @@
-local saga_definition = require("lspsaga.definition")
-local saga_finder = require("lspsaga.finder")
-
-local saga_code_action = require("lspsaga.codeaction")
-
-local saga_rename = require("lspsaga.rename")
-
-local saga_hover = require("lspsaga.hover")
-
-local saga_diagnostic = require("lspsaga.diagnostic")
-
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 local function on_attach(client, buffnr)
+  vim.diagnostic.config({
+    virtual_text = false,
+  })
+  local diagnostics_hold = vim.api.nvim_create_augroup("DiagnosticsCursorHold", { clear = true })
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    group = diagnostics_hold,
+    pattern = "*",
+    callback = function()
+      vim.diagnostic.open_float(nil, {
+        focus = false,
+        scope = "cursor",
+        source = "if_many",
+      })
+    end,
+  })
   vim.api.nvim_buf_set_option(buffnr, "omnifunc", "v:lua.lsp.omnifunc")
-  local opts = { silent = true, noremap = true, buffer = buffnr }
-  local mappings = {}
+  local function map(mode, key, func, desc)
+    if desc then
+      desc = "LSP: " .. desc
+    end
+    vim.keymap.set(mode, key, func, { silent = true, noremap = true, buffer = buffnr, desc = desc })
+  end
 
-  table.insert(mappings, {
-    "n",
-    "gd",
-    vim.lsp.buf.definition,
-    opts,
-  })
+  local function nmap(key, func, desc)
+    map("n", key, func, desc)
+  end
 
-  table.insert(mappings, {
-    "n",
-    "gD",
-    function()
-      saga_definition:peek_definition()
-    end,
-    opts,
-  })
-
-  table.insert(mappings, {
-    "n",
-    "gr",
-    function()
-      saga_rename:lsp_rename()
-    end,
-    opts,
-  })
-
-  table.insert(mappings, {
-    "n",
-    "gh",
-    function()
-      saga_finder:lsp_finder()
-    end,
-    opts,
-  })
-
-  table.insert(mappings, {
-    "n",
-    "<leader>ca",
-    function()
-      saga_code_action:code_action()
-    end,
-    opts,
-  })
-  table.insert(mappings, {
-    "v",
-    "<leader>ca",
-    function()
-      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-      saga_code_action:code_action()
-    end,
-    opts,
-  })
-
-  table.insert(mappings, { "n", "gs", vim.lsp.buf.signature_help, opts })
-
-  table.insert(mappings, {
-    "n",
-    "<leader>Z",
-    function()
-      saga_hover:render_hover_doc()
-    end,
-    opts,
-  })
-
-  table.insert(mappings, { "n", "[g", saga_diagnostic.goto_next, opts })
-  table.insert(mappings, { "n", "]g", saga_diagnostic.goto_prev, opts })
+  local function vmap(key, func, desc)
+    map("v", key, func, desc)
+  end
 
   local function format_lsp(bufnr)
     vim.lsp.buf.format({
@@ -91,15 +40,52 @@ local function on_attach(client, buffnr)
     })
   end
 
+  local normal_mappings = {
+
+    {
+      "gd",
+      vim.lsp.buf.definition,
+      "[G]oto [D]efinition",
+    },
+
+    {
+      "<leader>rn",
+      vim.lsp.buf.rename,
+      "[R]e[n]ame",
+    },
+
+    {
+      "gr",
+      require("telescope.builtin").lsp_references,
+      "[G]oto [R]eferences",
+    },
+
+    {
+      "<leader>ca",
+      vim.lsp.buf.code_action,
+      "[C]ode [A]ction",
+    },
+
+    { "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation" },
+
+    {
+      "K",
+      vim.lsp.buf.hover,
+      "Signature Documentation",
+    },
+
+    { "[g", vim.diagnostic.goto_next, "[G]oto Next" },
+    { "]g", vim.diagnostic.goto_prev, "[G]oto Prev" },
+    {
+      "<leader>F",
+      function()
+        format_lsp(buffnr)
+      end,
+      "[F]ormat",
+    },
+  }
+
   local lsp_formatting = vim.api.nvim_create_augroup("lsp_formatting", { clear = true })
-  table.insert(mappings, {
-    { "n", "v" },
-    "<leader>F",
-    function()
-      format_lsp(buffnr)
-    end,
-    opts,
-  })
 
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = lsp_formatting,
@@ -122,8 +108,27 @@ local function on_attach(client, buffnr)
     )
   end
 
-  for _, val in pairs(mappings) do
-    vim.keymap.set(unpack(val))
+  for _, val in pairs(normal_mappings) do
+    nmap(unpack(val))
+  end
+
+  local visual_mappings = {
+    {
+      "<leader>F",
+      function()
+        format_lsp(buffnr)
+      end,
+      "[F]ormat",
+    },
+    {
+      "<leader>ca",
+      vim.lsp.buf.code_action,
+      "[C]ode [A]ction",
+    },
+  }
+
+  for _, val in pairs(visual_mappings) do
+    vmap(unpack(val))
   end
 end
 
