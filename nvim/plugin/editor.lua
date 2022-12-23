@@ -1,6 +1,6 @@
 local function set_globals()
   local options = {
-    mapleader = ",",
+    mapleader = " ",
     node_host_prog = "~/.asdf/installs/nodejs/18.7.0/.npm/lib/node_modules/neovim/bin/cli.js",
   }
   for key, val in pairs(options) do
