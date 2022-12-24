@@ -1,11 +1,12 @@
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap =
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-  vim.cmd([[packadd packer.nvim]])
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local is_bootstrap = false
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  is_bootstrap = true
+  vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+  vim.cmd.packadd("packer.nvim")
 end
-require("packer").startup(function(use)
+local packer = require("packer")
+packer.startup(function(use)
   use("wbthomason/packer.nvim") -- Plugin Manager
   use("mattn/emmet-vim") -- Emmet
   use({ "catppuccin/nvim", as = "catppuccin" }) -- Colorscheme
@@ -14,11 +15,15 @@ require("packer").startup(function(use)
     config = function()
       require("Comment").setup()
     end,
+    keys = "gcc"
   }) -- Comment
-  use({ "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" } }) -- Git general
-  use({ "vinibispo/ruby.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } }) -- Ruby general
+  use({ "~/neogit", requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    keys = { "<leader>gs" },
+    cmd = { "Neogit" } }) -- Git general
+  use({ "vinibispo/ruby.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }, ft = { "ruby" } }) -- Ruby general
 
-  use({ "cuducos/yaml.nvim", requires = { "nvim-treesitter/nvim-treesitter", "nvim-telescope/telescope.nvim" } }) -- Yaml navigation
+  use({ "cuducos/yaml.nvim", requires = { "nvim-treesitter/nvim-treesitter", "nvim-telescope/telescope.nvim" },
+    ft = { "yaml" } }) -- Yaml navigation
 
   use({
     "nvim-neo-tree/neo-tree.nvim",
@@ -62,14 +67,7 @@ require("packer").startup(function(use)
       "rafamadriz/friendly-snippets",
     },
   }) -- Auto Completion
-  use({
-    "akinsho/bufferline.nvim",
-    config = function()
-      vim.schedule(function()
-        require("bufferline").setup({})
-      end)
-    end,
-  }) -- Bufferline (Tabs)
+  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' } -- Bufferline (Tabs)
   use({
     "folke/trouble.nvim",
     config = function()
@@ -96,12 +94,15 @@ require("packer").startup(function(use)
     "nvim-neotest/neotest",
     requires = {
       "olimorris/neotest-rspec",
+      "nvim-neotest/neotest-plenary"
     },
-  })
+  }) --Testing inside neovim
 
   use("lukas-reineke/indent-blankline.nvim") -- Indent mark
 
-  use("Massolari/forem.nvim")
-
-  -- use_rocks("fun")
+  use("Massolari/forem.nvim") --Write dev.to posts inside neovim
 end)
+
+if is_bootstrap then
+  packer.sync()
+end
