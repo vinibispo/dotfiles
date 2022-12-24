@@ -92,8 +92,6 @@ require("packer").startup(function(use)
   }) -- TODO, NOTE, FIX list
   use("rcarriga/nvim-notify") -- Notifications of Neovim
 
-  use("glepnir/lspsaga.nvim")
-
   use({
     "nvim-neotest/neotest",
     requires = {
