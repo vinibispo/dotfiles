@@ -1,4 +1,7 @@
-local neogit = require("neogit")
+local status, neogit = pcall(require, "neogit")
+if not status then
+  return
+end
 
 local function setup()
   neogit.setup({

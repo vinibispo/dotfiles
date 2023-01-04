@@ -1,100 +1,102 @@
-local saga_definition = require("lspsaga.definition")
-local saga_finder = require("lspsaga.finder")
-local saga_action = require("lspsaga.action")
-
-local saga_code_action = require("lspsaga.codeaction")
-
-local saga_signature_help = require("lspsaga.signaturehelp")
-
-local saga_rename = require("lspsaga.rename")
-
-local saga_hover = require("lspsaga.hover")
-
-local saga_diagnostic = require("lspsaga.diagnostic")
-
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local style = require("modules.style")
 local function on_attach(client, buffnr)
-  local opts = { silent = true, noremap = true, buffer = buffnr }
-  local mappings = {
-    { "n", "gd", vim.lsp.buf.definition, opts },
-  }
-
-  if client.supports_method("textDocument/definition") then
-    table.insert(mappings, { "n", "gd", vim.lsp.buf.definition, opts })
+  vim.diagnostic.config({
+    virtual_text = false,
+  })
+  local diagnostics_hold = vim.api.nvim_create_augroup("DiagnosticsCursorHold", { clear = true })
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    group = diagnostics_hold,
+    pattern = "*",
+    callback = function()
+      vim.diagnostic.open_float(nil, {
+        focus = false,
+        scope = "cursor",
+        source = "if_many",
+      })
+    end,
+  })
+  vim.api.nvim_buf_set_option(buffnr, "omnifunc", "v:lua.lsp.omnifunc")
+  local function map(mode, key, func, desc)
+    if desc then
+      desc = "LSP: " .. desc
+    end
+    vim.keymap.set(mode, key, func, { silent = true, noremap = true, buffer = buffnr, desc = desc })
   end
 
-  if client.supports_method("textDocument/previewDefinition") then
-    table.insert(mappings, { "n", "gD", saga_definition.preview_definition, opts })
+  local function nmap(key, func, desc)
+    map("n", key, func, desc)
   end
 
-  if client.supports_method("textDocument/rename") then
-    table.insert(mappings, { "n", "gr", saga_rename.lsp_rename, opts })
+  local function vmap(key, func, desc)
+    map("v", key, func, desc)
   end
 
-  if client.supports_method("textDocument/references") or client.supports_method("textDocument/definition") then
-    table.insert(mappings, { "n", "gh", saga_finder.lsp_finder, opts })
-  end
-
-  if client.supports_method("textDocument/codeAction") then
-    table.insert(mappings, { "n", "<leader>ca", saga_code_action.code_action, opts })
-    table.insert(mappings, {
-      "v",
-      "<leader>ca",
-      function()
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-        saga_code_action.range_code_action()
+  local function format_lsp(bufnr)
+    vim.lsp.buf.format({
+      filter = function(_)
+        return true
       end,
-      opts,
+      bufnr = bufnr,
     })
   end
 
-  if client.supports_method("textDocument/signatureHelp") then
-    table.insert(mappings, { "n", "gs", saga_signature_help.signature_help, opts })
-  end
+  local normal_mappings = {
 
-  if client.supports_method("textDocument/hover") then
-    table.insert(mappings, { "n", "<leader>Z", saga_hover.render_hover_doc, opts })
-  end
+    {
+      "gd",
+      vim.lsp.buf.definition,
+      "[G]oto [D]efinition",
+    },
 
-  if client.supports_method("textDocument/publishDiagnostics") then
-    table.insert(mappings, { "n", "[g", saga_diagnostic.goto_next, opts })
-    table.insert(mappings, { "n", "]g", saga_diagnostic.goto_prev, opts })
-  end
+    {
+      "<leader>rn",
+      vim.lsp.buf.rename,
+      "[R]e[n]ame",
+    },
 
-  if client.supports_method("textDocument/formatting") then
-    local function format_lsp(bufnr)
-      vim.lsp.buf.format({
-        filter = function(_)
-          return true
-        end,
-        bufnr = bufnr,
-      })
-    end
+    {
+      "gr",
+      require("telescope.builtin").lsp_references,
+      "[G]oto [R]eferences",
+    },
 
-    local lsp_formatting = vim.api.nvim_create_augroup("lsp_formatting", { clear = true })
-    table.insert(mappings, {
-      "n",
+    {
+      "<leader>ca",
+      vim.lsp.buf.code_action,
+      "[C]ode [A]ction",
+    },
+
+    { "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation" },
+
+    {
+      "K",
+      vim.lsp.buf.hover,
+      "Signature Documentation",
+    },
+
+    { "[g", vim.diagnostic.goto_next, "[G]oto Next" },
+    { "]g", vim.diagnostic.goto_prev, "[G]oto Prev" },
+    {
       "<leader>F",
       function()
         format_lsp(buffnr)
       end,
-      opts,
-    })
+      "[F]ormat",
+    },
+  }
 
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = lsp_formatting,
-      buffer = buffnr,
-      callback = function()
-        format_lsp(buffnr)
-      end,
-    })
-  end
+  local lsp_formatting = vim.api.nvim_create_augroup("lsp_formatting", { clear = true })
 
-  if client.supports_method("textDocument/rangeFormatting") then
-    table.insert(mappings, { "v", "<leader>F", vim.lsp.buf.range_formatting, opts })
-  end
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = lsp_formatting,
+    buffer = buffnr,
+    callback = function()
+      format_lsp(buffnr)
+    end,
+  })
 
-  if client.supports_method("textDocument/highlight") then
+  if client.supports_method("textDocument/highlight") and client.name ~= "grammarly" then
     local lsp_document_highlight = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
     vim.api.nvim_create_autocmd(
       "CursorHold",
@@ -107,27 +109,36 @@ local function on_attach(client, buffnr)
     )
   end
 
-  table.insert(mappings, {
-    "n",
-    "<C-a>",
-    function()
-      saga_action.smart_scroll_with_saga(1)
-    end,
-    opts,
-  })
-
-  table.insert(mappings, {
-    "n",
-    "<C-b>",
-    function()
-      saga_action.smart_scroll_with_saga(-1)
-    end,
-    opts,
-  })
-
-  for _, val in pairs(mappings) do
-    vim.keymap.set(unpack(val))
+  for _, val in pairs(normal_mappings) do
+    nmap(unpack(val))
   end
+
+  local visual_mappings = {
+    {
+      "<leader>F",
+      function()
+        format_lsp(buffnr)
+      end,
+      "[F]ormat",
+    },
+    {
+      "<leader>ca",
+      vim.lsp.buf.code_action,
+      "[C]ode [A]ction",
+    },
+  }
+
+  for _, val in pairs(visual_mappings) do
+    vmap(unpack(val))
+  end
+end
+
+local function make_handlers()
+  local handlers = {}
+  handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = style.set_border() })
+  handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(vim.lsp.handlers.signature_help, { border = style.set_border() })
+  return handlers
 end
 
 local function make_config()
@@ -136,8 +147,8 @@ local function make_config()
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = { "documentation", "detail", "additionalTextEdits" },
   }
-  local new_capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-  local opts = { on_attach = on_attach, capabilities = new_capabilities }
+  local new_capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+  local opts = { on_attach = on_attach, capabilities = new_capabilities, handlers = make_handlers() }
   return opts
 end
 

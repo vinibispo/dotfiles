@@ -1,5 +1,11 @@
 local function set_globals()
-  vim.g.mapleader = ","
+  local options = {
+    mapleader = " ",
+    node_host_prog = "~/.asdf/installs/nodejs/18.7.0/.npm/lib/node_modules/neovim/bin/cli.js",
+  }
+  for key, val in pairs(options) do
+    vim.g[key] = val
+  end
 end
 
 local function set_options()
@@ -22,7 +28,6 @@ local function set_options()
     confirm = true,
     showmode = false,
     smartindent = true,
-    clipboard = "unnamed,unnamedplus",
     wrap = true,
     linebreak = true,
     foldmethod = "expr",
@@ -41,7 +46,7 @@ local function set_options()
     number = true,
     undodir = undo_dir,
     undofile = true,
-    completeopt = "menuone,noinsert,noselect",
+    completeopt = "menu,menuone,noinsert,noselect",
     signcolumn = "yes",
     cmdheight = 2,
     updatetime = 50,
@@ -60,6 +65,14 @@ local function set_mappings()
     { "n", "F5", "<cmd>e!", opts },
     { "n", "<leader>ev", "<cmd>e ~/dotfiles/nvim/init.lua <CR>", opts },
     { "n", "<leader>sv", "<cmd>source ~/dotfiles/nvim/init.lua <CR>", opts },
+    { { "n", "v" }, "<leader>y", "\"+y" },
+    { { "n", "v" }, "<leader>Y", "\"+Y" },
+    { { "n", "v" }, "<leader>d", "\"_d" },
+    { { "n", "v" }, "<leader>p", "\"+p" },
+    { { "n", "v" }, "<leader>P", "\"+P" },
+    { "t", "jk", [[<C-\><C-n>]] },
+    { "t", "<esc>", [[<C-\><C-n>]] },
+    { { "i", "v" }, "jk", "<esc>" },
   }
 
   for _, val in pairs(mappings) do
@@ -68,7 +81,6 @@ local function set_mappings()
 end
 
 local function set_theme()
-  vim.g.catppuccin_flavour = "latte"
   vim.cmd([[ colorscheme catppuccin]])
 end
 

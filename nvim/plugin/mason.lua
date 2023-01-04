@@ -4,6 +4,7 @@ local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
 local lsp = require("modules.lsp")
 
+mason_lspconfig.setup()
 mason_lspconfig.setup_handlers({
   function(name)
     return lspconfig[name].setup(lsp.make_config())
@@ -18,5 +19,10 @@ mason_lspconfig.setup_handlers({
     }
 
     return lspconfig.sumneko_lua.setup(config)
+  end,
+  ["grammarly"] = function()
+    local config = lsp.make_config()
+    config.filetypes = { "markdown", "gitcommit", "NeogitCommitMessage" }
+    return lspconfig.grammarly.setup(config)
   end,
 })

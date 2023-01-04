@@ -1,4 +1,4 @@
-local function PackerReinstall(name) -- usage example => :lua PackerReinstall "yaml.nvim"
+local function PackerReinstall(name)
   if package.loaded["packer"] == nil then
     print("Packer not installed or not loaded")
   end
@@ -16,7 +16,7 @@ local function PackerReinstall(name) -- usage example => :lua PackerReinstall "y
               return
             end
             os.execute("cd " .. dir .. " && git fetch --progress origin && git reset --hard origin")
-            vim.cmd(":PackerSync")
+            vim.cmd.PackerSync()
           end)
           return
         end

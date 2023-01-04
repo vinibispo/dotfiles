@@ -1,8 +1,14 @@
+local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local previewer = require("telescope.previewers")
 local sorters = require("telescope.sorters")
+local helpers = require("modules.helpers")
 local function project_files()
-  local ok = pcall(builtin.git_files, {})
+  if helpers.is_acg() then
+    builtin.find_files({})
+    return
+  end
+  local ok = pcall(builtin.git_files, { show_untracked = true })
   if not ok then
     builtin.find_files({})
   end
@@ -11,9 +17,9 @@ end
 local function set_mapping()
   local opts = { noremap = true }
   local mappings = {
-    { "n", "<C-f>", builtin.live_grep, opts },
-    { "n", "<leader>g", builtin.git_files, opts },
-    { "n", ";", project_files, opts },
+    { "n", "<leader>lg", builtin.live_grep, opts },
+    { "n", "<leader>gf", builtin.git_files, opts },
+    { "n", "<leader>pf", project_files, opts },
     { "n", "<leader>G", builtin.git_status },
     { "n", "<leader>b", builtin.buffers, opts },
     { "n", "<leader>gb", builtin.git_branches, opts },
@@ -28,7 +34,7 @@ local function set_mapping()
 end
 
 local function setup()
-  require("telescope").setup({
+  telescope.setup({
     defaults = {
       vimgrep_arguments = {
         "rg",

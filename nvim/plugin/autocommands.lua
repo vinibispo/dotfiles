@@ -18,10 +18,10 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
   end,
 })
 
-local jbuilder = vim.api.nvim_create_augroup("jbuilder", { clear = true })
+local ruby_like = vim.api.nvim_create_augroup("ruby like", { clear = true })
 vim.api.nvim_create_autocmd(
   "BufEnter",
-  { pattern = "*.json.jbuilder", command = "set filetype=ruby", group = jbuilder }
+  { pattern = "*{.json.jbuilder,.xlsx.axlsx}", command = "set filetype=ruby", group = ruby_like }
 )
 
 local packer = vim.api.nvim_create_augroup("PackerUserConfig", { clear = true })

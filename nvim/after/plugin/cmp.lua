@@ -1,6 +1,7 @@
-local cmp = require("cmp")
+local cmp     = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
+local style   = require("modules.style")
 
 local function has_words_before()
   local table = vim.api.nvim_win_get_cursor(0)
@@ -18,6 +19,14 @@ cmp.setup({
       luasnip.lsp_expand(args.body)
     end,
   },
+  window = {
+    completion = {
+      border = style.set_border("CmpBorder")
+    },
+    documentation = {
+      border = style.set_border("CmpDocBorder")
+    }
+  },
   formatting = {
     format = lspkind.cmp_format({
       width_text = false,
@@ -34,7 +43,7 @@ cmp.setup({
     }),
   },
   mapping = {
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<C-n>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         return cmp.select_next_item()
       end
@@ -72,4 +81,28 @@ cmp.setup({
     { name = "treesitter" },
     { name = "luasnip" },
   },
+})
+
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=] },
+  }),
+})
+
+cmp.setup.cmdline(":!", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 },
+  }),
 })
