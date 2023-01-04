@@ -37,6 +37,8 @@ local function setup()
   neotest.setup({
     adapters = {
       require("neotest-rspec"),
+      require("neotest-plenary"),
+      require("neotest-elixir"),
     },
     consumers = {
       always_open_output = function(client)

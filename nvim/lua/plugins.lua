@@ -94,7 +94,8 @@ packer.startup(function(use)
     "nvim-neotest/neotest",
     requires = {
       "olimorris/neotest-rspec",
-      "nvim-neotest/neotest-plenary"
+      "nvim-neotest/neotest-plenary",
+      "jfpedroza/neotest-elixir",
     },
   }) --Testing inside neovim
 
