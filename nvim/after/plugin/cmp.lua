@@ -1,14 +1,15 @@
-local cmp = require("cmp")
+local cmp     = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
+local style   = require("modules.style")
 
 local function has_words_before()
   local table = vim.api.nvim_win_get_cursor(0)
   local line = table[1]
   local col = table[2]
   local has = (
-    (0 ~= col) and (nil == ((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s"))
-  )
+      (0 ~= col) and (nil == ((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s"))
+      )
   return has
 end
 
@@ -17,6 +18,14 @@ cmp.setup({
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
+  },
+  window = {
+    completion = {
+      border = style.set_border("CmpBorder")
+    },
+    documentation = {
+      border = style.set_border("CmpDocBorder")
+    }
   },
   formatting = {
     format = lspkind.cmp_format({
