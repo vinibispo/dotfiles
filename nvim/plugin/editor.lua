@@ -68,6 +68,11 @@ local function set_mappings()
     { { "n", "v" }, "<leader>y", "\"+y" },
     { { "n", "v" }, "<leader>Y", "\"+Y" },
     { { "n", "v" }, "<leader>d", "\"_d" },
+    { { "n", "v" }, "<leader>p", "\"+p" },
+    { { "n", "v" }, "<leader>P", "\"+P" },
+    { "t", "jk", [[<C-\><C-n>]] },
+    { "t", "<esc>", [[<C-\><C-n>]] },
+    { { "i", "v" }, "jk", "<esc>" },
   }
 
   for _, val in pairs(mappings) do
