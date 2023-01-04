@@ -15,15 +15,25 @@ packer.startup(function(use)
     config = function()
       require("Comment").setup()
     end,
-    keys = "gcc"
+    keys = "gcc",
   }) -- Comment
-  use({ "~/neogit", requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+  use({
+    "~/neogit",
+    requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
     keys = { "<leader>gs" },
-    cmd = { "Neogit" } }) -- Git general
-  use({ "vinibispo/ruby.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }, ft = { "ruby" } }) -- Ruby general
+    cmd = { "Neogit" },
+  }) -- Git general
+  use({
+    "vinibispo/ruby.nvim",
+    requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
+    ft = { "ruby" },
+  }) -- Ruby general
 
-  use({ "cuducos/yaml.nvim", requires = { "nvim-treesitter/nvim-treesitter", "nvim-telescope/telescope.nvim" },
-    ft = { "yaml" } }) -- Yaml navigation
+  use({
+    "cuducos/yaml.nvim",
+    requires = { "nvim-treesitter/nvim-treesitter", "nvim-telescope/telescope.nvim" },
+    ft = { "yaml" },
+  }) -- Yaml navigation
 
   use({
     "nvim-neo-tree/neo-tree.nvim",
@@ -67,7 +77,7 @@ packer.startup(function(use)
       "rafamadriz/friendly-snippets",
     },
   }) -- Auto Completion
-  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' } -- Bufferline (Tabs)
+  use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" }) -- Bufferline (Tabs)
   use({
     "folke/trouble.nvim",
     config = function()
