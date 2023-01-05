@@ -1,1 +1,1 @@
-require("modules.languages").js()
+require("vinibispo.modules.languages").js()

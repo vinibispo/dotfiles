@@ -1,0 +1,44 @@
+local function setup()
+  require("mason").setup()
+
+  local lspconfig = require("lspconfig")
+  local mason_lspconfig = require("mason-lspconfig")
+  local lsp = require("vinibispo.modules.lsp")
+
+  mason_lspconfig.setup()
+  mason_lspconfig.setup_handlers({
+    function(name)
+      return lspconfig[name].setup(lsp.make_config())
+    end,
+    ["sumneko_lua"] = function()
+      local config = lsp.make_config()
+      config.settings = {
+        Lua = {
+          runtime = { version = "LuaJIT" },
+          diagnostics = { globals = { "vim", "use_rocks" } },
+        },
+      }
+
+      return lspconfig.sumneko_lua.setup(config)
+    end,
+    ["grammarly"] = function()
+      local config = lsp.make_config()
+      config.filetypes = { "markdown", "gitcommit", "NeogitCommitMessage" }
+      return lspconfig.grammarly.setup(config)
+    end,
+  })
+end
+
+return {
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      -- LSP
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = setup,
+  }, --Neovim LSP Config
+  { "folke/trouble.nvim", config = true }, --LSP Diagnostic List
+  { "j-hui/fidget.nvim", config = {} }, -- LSP Progress Spinner
+}

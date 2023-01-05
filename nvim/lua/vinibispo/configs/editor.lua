@@ -51,7 +51,6 @@ local function set_options()
     cmdheight = 2,
     updatetime = 50,
     colorcolumn = "80",
-    background = "dark",
     termguicolors = true,
   }
   for key, val in pairs(options) do
@@ -80,14 +79,8 @@ local function set_mappings()
   end
 end
 
-local function set_theme()
-  vim.cmd([[ colorscheme catppuccin]])
-end
-
 set_globals()
 
 set_options()
 
 set_mappings()
-
-set_theme()

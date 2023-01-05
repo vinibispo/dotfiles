@@ -1,5 +1,5 @@
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
-local style = require("modules.style")
+local style = require("vinibispo.modules.style")
 local function on_attach(client, buffnr)
   vim.diagnostic.config({
     virtual_text = false,

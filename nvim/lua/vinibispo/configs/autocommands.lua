@@ -23,11 +23,3 @@ vim.api.nvim_create_autocmd(
   "BufEnter",
   { pattern = "*{.json.jbuilder,.xlsx.axlsx}", command = "set filetype=ruby", group = ruby_like }
 )
-
-local packer = vim.api.nvim_create_augroup("PackerUserConfig", { clear = true })
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-  group = packer,
-  pattern = "plugins.lua",
-  command = "source <afile> | PackerCompile profile=true",
-})
