@@ -63,7 +63,14 @@ local function set_mappings()
   local mappings = {
     { "n", "F5", "<cmd>e!", opts },
     { "n", "<leader>ev", "<cmd>e ~/dotfiles/nvim/init.lua <CR>", opts },
-    { "n", "<leader>sv", "<cmd>source ~/dotfiles/nvim/init.lua <CR>", opts },
+    {
+      "n",
+      "<leader>sv",
+      function()
+        require("plenary.reload").reload_module("vinibispo")
+      end,
+      opts,
+    },
     { { "n", "v" }, "<leader>y", "\"+y" },
     { { "n", "v" }, "<leader>Y", "\"+Y" },
     { { "n", "v" }, "<leader>d", "\"_d" },
