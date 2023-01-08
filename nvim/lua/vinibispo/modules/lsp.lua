@@ -1,6 +1,6 @@
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local style = require("vinibispo.modules.style")
-local function on_attach(client, buffnr)
+local function publish_diagnostics()
   vim.diagnostic.config({
     virtual_text = false,
   })
@@ -12,10 +12,17 @@ local function on_attach(client, buffnr)
       vim.diagnostic.open_float(nil, {
         focus = false,
         scope = "cursor",
-        source = "if_many",
+        source = "always",
       })
     end,
   })
+  if not vim.g.diagnostics_active then
+    vim.api.nvim_del_augroup_by_id(diagnostics_hold)
+  end
+end
+
+local function on_attach(client, buffnr)
+  publish_diagnostics()
   vim.api.nvim_buf_set_option(buffnr, "omnifunc", "v:lua.lsp.omnifunc")
   local function map(mode, key, func, desc)
     if desc then
@@ -137,7 +144,7 @@ local function make_handlers()
   local handlers = {}
   handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = style.set_border() })
   handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = style.set_border() })
+  vim.lsp.with(vim.lsp.handlers.signature_help, { border = style.set_border() })
   return handlers
 end
 
@@ -152,4 +159,4 @@ local function make_config()
   return opts
 end
 
-return { make_config = make_config, on_attach = on_attach }
+return { make_config = make_config, on_attach = on_attach, publish_diagnostics = publish_diagnostics }
