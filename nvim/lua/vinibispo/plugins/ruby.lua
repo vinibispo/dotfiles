@@ -3,7 +3,7 @@ return {
     "vinibispo/ruby.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
     ft = { "ruby" },
-    config = {
+    opts = {
       test_cmd = "ruby",
       test_args = {},
     },

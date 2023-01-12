@@ -40,5 +40,9 @@ return {
     config = setup,
   }, --Neovim LSP Config
   { "folke/trouble.nvim", config = true }, --LSP Diagnostic List
-  { "j-hui/fidget.nvim", config = {} }, -- LSP Progress Spinner
+  { "j-hui/fidget.nvim", opts = {
+    window = {
+      blend = 0,
+    },
+  } }, -- LSP Progress Spinner
 }
