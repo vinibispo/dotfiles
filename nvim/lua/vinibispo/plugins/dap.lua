@@ -52,23 +52,6 @@ local function config()
     }
   end
 
-  local function set_mappings()
-    local opts = { noremap = true }
-    local mappings = {
-      { "<leader>db", dap.toggle_breakpoint },
-      { "<leader>dc", dap.continue },
-      { "<leader>ds", dap.step_out },
-      { "<leader>do", dap.step_over },
-      { "<leader>di", dap.step_into },
-      { "<leader>dr", dap.repl.open },
-    }
-    for _, value in pairs(mappings) do
-      local key = value[1]
-      local _function = value[2]
-      vim.keymap.set({ "n", "v", "x" }, key, _function, opts)
-    end
-  end
-
   local function setup_ui()
     dapui.setup()
     dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -86,8 +69,6 @@ local function config()
 
   set_configurations()
 
-  set_mappings()
-
   setup_ui()
 end
 
@@ -96,5 +77,49 @@ return {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap" },
     config = config,
+    keys = {
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "[D]ap Toggle [B]reakpoint",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dap").continue()
+        end,
+        desc = "[D]ap [C]ontinue",
+      },
+      {
+        "<leader>ds",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "[D]ap [S]tep Out",
+      },
+      {
+        "<leader>do",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "[D]ap Step [O]ver",
+      },
+      {
+        "<leader>di",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "[D]ap Step [I]nto",
+      },
+      {
+        "<leader>dr",
+        function()
+          require("dap").repl.open()
+        end,
+        desc = "[D]ap [R]epl Open",
+      },
+    },
   }, --Debugger
 }

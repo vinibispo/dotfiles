@@ -30,8 +30,6 @@ local function set_options()
     smartindent = true,
     wrap = true,
     linebreak = true,
-    foldmethod = "expr",
-    foldexpr = "nvim_treesitter#foldexpr()",
     wildmode = "list:longest",
     wildmenu = true,
     wildignore = "*.o, *.obj, *~, *vim/backups, *sass-cache, *DS_Store, vendor/rails/**, vendor/cache/**, *.gem, log/**, tmp/**, *.png, *.jpg, *.gif, *.swp, *.pyc",
@@ -59,7 +57,7 @@ local function set_options()
 end
 
 local function set_mappings()
-  local opts = { noremap = true, silent = true }
+  local opts = {  silent = true }
   local mappings = {
     { "n", "F5", "<cmd>e!", opts },
     { "n", "<leader>ev", "<cmd>e ~/dotfiles/nvim/init.lua <CR>", opts },

@@ -28,7 +28,7 @@ local function on_attach(client, buffnr)
     if desc then
       desc = "LSP: " .. desc
     end
-    vim.keymap.set(mode, key, func, { silent = true, noremap = true, buffer = buffnr, desc = desc })
+    vim.keymap.set(mode, key, func, { silent = true,  buffer = buffnr, desc = desc })
   end
 
   local function nmap(key, func, desc)

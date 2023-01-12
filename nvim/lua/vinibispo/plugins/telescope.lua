@@ -1,41 +1,14 @@
-local function config()
-  local telescope = require("telescope")
-  local builtin = require("telescope.builtin")
-  local previewer = require("telescope.previewers")
-  local sorters = require("telescope.sorters")
-  local helpers = require("vinibispo.modules.helpers")
-  local function project_files()
-    if helpers.is_acg() then
-      builtin.find_files({})
-      return
-    end
-    local ok = pcall(builtin.git_files, { show_untracked = true })
-    if not ok then
-      builtin.find_files({})
-    end
-  end
+return {
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-lua/popup.nvim",
+      "nvim-telescope/telescope-dap.nvim",
+    },
+    priority = 900,
+    opts = {
 
-  local function set_mapping()
-    local opts = { noremap = true }
-    local mappings = {
-      { "n", "<leader>lg", builtin.live_grep, opts },
-      { "n", "<leader>gf", builtin.git_files, opts },
-      { "n", "<leader>pf", project_files, opts },
-      { "n", "<leader>G", builtin.git_status },
-      { "n", "<leader>b", builtin.buffers, opts },
-      { "n", "<leader>gb", builtin.git_branches, opts },
-    }
-    for _, val in pairs(mappings) do
-      local first = val[1]
-      local second = val[2]
-      local third = val[3]
-      local fourth = val[4]
-      vim.keymap.set(first, second, third, fourth)
-    end
-  end
-
-  local function setup()
-    telescope.setup({
       defaults = {
         vimgrep_arguments = {
           "rg",
@@ -54,34 +27,92 @@ local function config()
         sorting_strategy = "descending",
         layout_strategy = "horizontal",
         layout_config = { horizontal = { mirror = false }, vertical = { mirror = false } },
-        file_sorter = sorters.get_fuzzy_file,
         file_ignore_patterns = {},
-        generic_sorter = sorters.get_generic_fuzzy_sorter,
         winblend = 0,
         border = {},
         color_devicons = true,
         use_less = true,
         path_display = {},
-        file_previewer = previewer.vim_buffer_cat.new,
-        grep_previewer = previewer.vim_buffer_vimgrep.new,
-        qflist_previewer = previewer.vim_buffer_qflist.new,
+        preview = {
+          mime_hook = function(filepath, bufnr, opts)
+            local is_image = function(fpath)
+              local image_extensions = { "png", "jpg" } -- Supported image formats
+              local split_path = vim.split(fpath:lower(), ".", { plain = true })
+              local extension = split_path[#split_path]
+              return vim.tbl_contains(image_extensions, extension)
+            end
+            if is_image(filepath) then
+              local term = vim.api.nvim_open_term(bufnr, {})
+              local function send_output(_, data, _)
+                for _, d in ipairs(data) do
+                  vim.api.nvim_chan_send(term, d .. "\r\n")
+                end
+              end
+
+              vim.fn.jobstart({
+                "catimg",
+                filepath, -- Terminal image viewer command
+              }, { on_stdout = send_output, stdout_buffered = true })
+            else
+              require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+            end
+          end,
+        },
       },
-    })
-  end
-
-  setup()
-  set_mapping()
-end
-
-return {
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-lua/popup.nvim",
-      "nvim-telescope/telescope-dap.nvim",
     },
-    priority = 900,
-    config = config,
+    keys = {
+      {
+        "<leader>lg",
+        function()
+          require("telescope.builtin").live_grep()
+        end,
+        desc = "Telescope [L]ive [G]rep",
+      },
+      {
+        "<leader>gf",
+        function()
+          require("telescope.builtin").git_files()
+        end,
+        desc = "Telescope [G]it [F]iles",
+      },
+      {
+        "<leader>pf",
+        function()
+          local helpers = require("vinibispo.modules.helpers")
+          local builtin = require("telescope.builtin")
+          if helpers.is_acg() then
+            builtin.find_files({})
+            return
+          end
+          local ok = pcall(builtin.git_files, { show_untracked = true })
+          if not ok then
+            builtin.find_files({})
+          end
+        end,
+        desc = "Telescope [P]roject [F]iles",
+      },
+      {
+        "<leader>G",
+        function()
+          require("telescope.builtin").git_status()
+        end,
+        desc = "Telescope [G]it Status",
+      },
+      {
+        "<leader>b",
+        function()
+          require("telescope.builtin").buffers()
+        end,
+        desc = "Telescope [B]uffers",
+      },
+      {
+        "<leader>gb",
+        function()
+          require("telescope.builtin").git_branches()
+        end,
+        desc = "Telescope [G]it [B]ranches",
+      },
+    },
+    cmd = "Telescope",
   }, -- Fuzzy Finder
 }

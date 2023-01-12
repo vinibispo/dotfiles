@@ -19,6 +19,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "nvim-treesitter/playground" },
+    init = function()
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.o.foldmethod = "expr"
+    end,
     config = setup,
   }, -- TreeSitter Support
 }

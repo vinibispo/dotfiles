@@ -127,42 +127,40 @@ local function luasnip_config()
     end
   end
 
-  local function set_mappings()
-    local opts = { silent = true, noremap = true }
-    local mappings = {
-      {
-        { "i", "s" },
-        "<C-j>",
-        function()
-          luasnip.jump(1)
-        end,
-        opts,
-      },
-      {
-        { "i", "s" },
-        "<C-i>",
-        function()
-          luasnip.jump(-1)
-        end,
-        opts,
-      },
-    }
-
-    for _, value in pairs(mappings) do
-      vim.keymap.set(unpack(value))
-    end
-  end
-
   setup()
-
-  set_mappings()
 end
 
 return {
-  { "L3MoN4D3/LuaSnip", config = luasnip_config },
+  {
+    "L3MoN4D3/LuaSnip",
+    config = luasnip_config,
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    keys = {
+
+      {
+        "<C-j>",
+        function()
+          require("luasnip").jump(1)
+        end,
+        mode = { "i", "s" },
+        desc = "Luasnip [J]ump Next",
+      },
+      {
+        "<C-i>",
+        function()
+          require("luasnip").jump(-1)
+        end,
+        mode = { "i", "s" },
+        desc = "Luasnip Jump Prev[I]ous",
+      },
+    },
+  },
   {
     "hrsh7th/nvim-cmp",
     config = config,
+    event = { "InsertEnter", "CmdLineEnter" },
     dependencies = {
       -- Completion
       "hrsh7th/nvim-cmp",
@@ -175,7 +173,7 @@ return {
       "ray-x/cmp-treesitter",
       -- Snippet
       "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
+      "L3MoN4D3/LuaSnip",
       -- Style
       "onsails/lspkind-nvim",
     },

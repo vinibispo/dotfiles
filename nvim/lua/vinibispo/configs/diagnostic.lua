@@ -16,5 +16,5 @@ vim.keymap.set(
   "n",
   "<leader>td",
   toggle_diagnostics,
-  { desc = "LSP: Toggle Diagnostics ", silent = true, noremap = true }
+  { desc = "LSP: Toggle Diagnostics ", silent = true,  }
 )
