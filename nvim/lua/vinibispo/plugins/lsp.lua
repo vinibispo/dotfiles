@@ -31,6 +31,7 @@ end
 
 return {
   {
+    event = "BufReadPost",
     "neovim/nvim-lspconfig",
     dependencies = {
       -- LSP

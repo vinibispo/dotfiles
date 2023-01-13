@@ -25,5 +25,10 @@ local function setup()
 end
 
 return {
-  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" }, config = setup }, -- Add LSP Stuff in linters, formatters,
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "BufReadPost",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = setup,
+  }, -- Add LSP Stuff in linters, formatters,
 }
