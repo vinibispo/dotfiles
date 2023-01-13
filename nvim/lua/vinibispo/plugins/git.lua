@@ -7,7 +7,6 @@ return {
     },
     keys = {
       {
-        "n",
         "<leader>gc",
         function()
           require("neogit").open({ "commit" })
@@ -15,7 +14,6 @@ return {
         desc = "Neo[G]it [C]ommit",
       },
       {
-        "n",
         "<leader>gp",
         function()
           require("neogit").open({ "push" })
@@ -23,7 +21,6 @@ return {
         desc = "Neo[G]it [P]ush",
       },
       {
-        "n",
         "<leader>gs",
         function()
           require("neogit").open()
