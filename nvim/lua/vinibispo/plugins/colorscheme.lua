@@ -22,6 +22,7 @@ return {
           fidget = true,
           neotree = true,
           notify = true,
+          noice = true,
           treesitter = true,
           telescope = true,
           native_lsp = {
