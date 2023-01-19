@@ -42,6 +42,8 @@ local function config()
       end,
     },
     mapping = {
+      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-n>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           return cmp.select_next_item()
@@ -56,7 +58,7 @@ local function config()
         end
         return fallback()
       end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
+      ["<C-p>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           return cmp.select_prev_item()
         end
@@ -68,8 +70,19 @@ local function config()
         return fallback()
       end, { "i", "s" }),
       ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
+      ["<C-e>"] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        s = cmp.mapping.close(),
+      }),
       ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+      ["<C-q>"] = cmp.mapping(function()
+        vim.api.nvim_feedkeys(
+          vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<c-q>", true, true, true)),
+          "n",
+          true
+        )
+      end),
     },
     sources = {
       { name = "buffer" },
@@ -169,6 +182,14 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "ray-x/cmp-treesitter",
+      {
+        "github/copilot.vim",
+        init = function()
+          vim.g.copilot_no_tab_map = true
+          vim.g.copilot_assume_mapped = true
+          vim.g.copilot_filetypes = { ["dap-repl"] = false }
+        end,
+      },
       -- Snippet
       "saadparwaiz1/cmp_luasnip",
       "L3MoN4D3/LuaSnip",
