@@ -6,6 +6,11 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
+      {
+        "s1n7ax/nvim-window-picker",
+        version = "v1.*",
+        config = true,
+      },
     },
     opts = {
       enable_diagnostics = true,
@@ -16,6 +21,7 @@ return {
         use_libuv_file_watcher = true,
       },
     },
+    event = "BufWinEnter",
     keys = {
       {
         "<leader>t",
