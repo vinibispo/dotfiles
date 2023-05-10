@@ -11,12 +11,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 return require("lazy").setup("vinibispo.plugins", {
+  install = { colorscheme = { "catppuccin" } },
   performance = {
     rtp = {
       disabled_plugins = {
         "gzip",
-        "matchit",
-        "matchparen",
         "netrwPlugin",
         "tarPlugin",
         "tohtml",
