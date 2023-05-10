@@ -25,6 +25,12 @@ return {
         end,
         desc = "Ne[X]t Buffer",
       },
+      {
+        "<leader>bd",
+        function()
+          require("bufferline").close_with_pick()
+        end,
+      },
     },
   }, -- Bufferline (Tabs)
 }
