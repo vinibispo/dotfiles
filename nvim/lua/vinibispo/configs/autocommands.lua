@@ -1,3 +1,4 @@
+local languages = require("vinibispo.modules.languages")
 local line_numbers = vim.api.nvim_create_augroup("line_numbers", { clear = false })
 local function set_relative_number(boolean)
   if not (type(boolean) == "boolean") then
@@ -18,8 +19,9 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
   end,
 })
 
-local ruby_like = vim.api.nvim_create_augroup("ruby like", { clear = true })
-vim.api.nvim_create_autocmd(
-  "BufEnter",
-  { pattern = "*{.json.jbuilder,.xlsx.axlsx}", command = "set filetype=ruby", group = ruby_like }
-)
+
+local js_like = vim.api.nvim_create_augroup("js like", { clear = true })
+vim.api.nvim_create_autocmd("FileType", { pattern = "*{.js,.jsx,.ts,.tsx}", callback = languages.js, group = js_like })
+
+local cf_like = vim.api.nvim_create_augroup("coldfusion", { clear = true })
+vim.api.nvim_create_autocmd("FileType", { pattern = "*{.cfm,.cfc}", callback = languages.cf, group = cf_like })
