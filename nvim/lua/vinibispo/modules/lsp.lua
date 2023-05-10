@@ -28,7 +28,7 @@ local function on_attach(client, buffnr)
     if desc then
       desc = "LSP: " .. desc
     end
-    vim.keymap.set(mode, key, func, { silent = true,  buffer = buffnr, desc = desc })
+    vim.keymap.set(mode, key, func, { silent = true, buffer = buffnr, desc = desc })
   end
 
   local function nmap(key, func, desc)
@@ -103,19 +103,6 @@ local function on_attach(client, buffnr)
     end,
   })
 
-  if client.supports_method("textDocument/highlight") and client.name ~= "grammarly" then
-    local lsp_document_highlight = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
-    vim.api.nvim_create_autocmd(
-      "CursorHold",
-      { pattern = "<buffer>", group = lsp_document_highlight, callback = vim.lsp.buf.document_highlight }
-    )
-
-    vim.api.nvim_create_autocmd(
-      "CursorMoved",
-      { pattern = "<buffer>", group = lsp_document_highlight, callback = vim.lsp.buf.clear_references }
-    )
-  end
-
   for _, val in pairs(normal_mappings) do
     nmap(unpack(val))
   end
@@ -140,14 +127,6 @@ local function on_attach(client, buffnr)
   end
 end
 
-local function make_handlers()
-  local handlers = {}
-  handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = style.set_border() })
-  handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, { border = style.set_border() })
-  return handlers
-end
-
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -155,7 +134,7 @@ local function make_config()
     properties = { "documentation", "detail", "additionalTextEdits" },
   }
   local new_capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-  local opts = { on_attach = on_attach, capabilities = new_capabilities, handlers = make_handlers() }
+  local opts = { on_attach = on_attach, capabilities = new_capabilities }
   return opts
 end
 
