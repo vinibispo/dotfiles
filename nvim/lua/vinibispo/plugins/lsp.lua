@@ -10,7 +10,7 @@ local function setup()
     function(name)
       return lspconfig[name].setup(lsp.make_config())
     end,
-    ["sumneko_lua"] = function()
+    ["lua_ls"] = function()
       local config = lsp.make_config()
       config.settings = {
         Lua = {
@@ -19,7 +19,7 @@ local function setup()
         },
       }
 
-      return lspconfig.sumneko_lua.setup(config)
+      return lspconfig.lua_ls.setup(config)
     end,
     ["grammarly"] = function()
       local config = lsp.make_config()
