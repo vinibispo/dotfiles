@@ -11,6 +11,7 @@ local function setup()
     null_ls.builtins.formatting.eslint,
     null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.black,
   }
 
   if not helpers.is_acg() then
