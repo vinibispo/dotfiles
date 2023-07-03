@@ -1,1 +1,1 @@
-require("plugins")
+require("vinibispo.configs")

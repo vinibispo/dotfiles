@@ -1,0 +1,8 @@
+require("vinibispo.configs.globals")
+require("vinibispo.configs.editor")
+require("vinibispo.configs.autocommands")
+require("vinibispo.configs.filetype")
+require("vinibispo.configs.commands")
+require("vinibispo.configs.lazy")
+require("vinibispo.configs.diagnostic")
+require("vinibispo.configs.lsp_attach")
