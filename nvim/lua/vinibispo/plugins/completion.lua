@@ -9,8 +9,8 @@ local function config()
     local line = table[1]
     local col = table[2]
     local has = (
-        (0 ~= col) and (nil == ((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s"))
-        )
+      (0 ~= col) and (nil == ((vim.api.nvim_buf_get_lines(0, (line - 1), line, true))[1]):sub(col, col):match("%s"))
+    )
     return has
   end
 
@@ -92,6 +92,9 @@ local function config()
       { name = "spell" },
       { name = "treesitter" },
       { name = "luasnip" },
+      { name = "latex_symbols", option = {
+        strategy = 0,
+      } },
     },
   })
 
@@ -182,6 +185,7 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "ray-x/cmp-treesitter",
+      "kdheepak/cmp-latex-symbols",
       {
         "github/copilot.vim",
         init = function()
