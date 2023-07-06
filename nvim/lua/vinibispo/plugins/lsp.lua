@@ -26,6 +26,21 @@ local function setup()
       config.filetypes = { "markdown", "gitcommit", "NeogitCommitMessage" }
       return lspconfig.grammarly.setup(config)
     end,
+
+    require("typescript-tools").setup({
+      on_attach = lsp.on_attach,
+      settings = {
+        tsserver_file_preferences = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+    }),
   })
 end
 
@@ -37,13 +52,17 @@ return {
       -- LSP
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "pmizio/typescript-tools.nvim",
     },
     config = setup,
-  }, --Neovim LSP Config
+  },                                       --Neovim LSP Config
   { "folke/trouble.nvim", config = true }, --LSP Diagnostic List
-  { "j-hui/fidget.nvim", opts = {
-    window = {
-      blend = 0,
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      window = {
+        blend = 0,
+      },
     },
-  } }, -- LSP Progress Spinner
+  }, -- LSP Progress Spinner
 }
