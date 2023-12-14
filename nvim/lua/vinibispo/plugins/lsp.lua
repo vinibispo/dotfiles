@@ -59,10 +59,6 @@ return {
   { "folke/trouble.nvim", config = true }, --LSP Diagnostic List
   {
     "j-hui/fidget.nvim",
-    opts = {
-      window = {
-        blend = 0,
-      },
-    },
+    opts = {},
   }, -- LSP Progress Spinner
 }

@@ -41,8 +41,8 @@ local function on_attach(client, buffnr)
 
   local function format_lsp(bufnr)
     vim.lsp.buf.format({
-      filter = function(_)
-        return true
+      filter = function(client)
+        return client.name ~= "solargraph"
       end,
       bufnr = bufnr,
     })
