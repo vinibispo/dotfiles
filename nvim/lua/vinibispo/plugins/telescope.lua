@@ -80,7 +80,7 @@ return {
         function()
           local helpers = require("vinibispo.modules.helpers")
           local builtin = require("telescope.builtin")
-          if helpers.is_acg() then
+          if helpers.is_work() then
             builtin.find_files({})
             return
           end

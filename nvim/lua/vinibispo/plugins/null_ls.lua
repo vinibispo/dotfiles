@@ -15,7 +15,7 @@ local function setup()
     null_ls.builtins.formatting.trim_whitespace,
   }
 
-  if not helpers.is_acg() then
+  if not helpers.is_work() then
     table.insert(null_ls_sources, null_ls.builtins.diagnostics.rubocop)
     table.insert(null_ls_sources, null_ls.builtins.formatting.rubocop)
   end
@@ -28,7 +28,7 @@ end
 
 return {
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = "BufReadPost",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = setup,
